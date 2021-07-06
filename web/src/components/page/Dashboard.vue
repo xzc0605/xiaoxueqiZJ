@@ -1,117 +1,23 @@
 <template>
-    <div>
-        <el-row :gutter="20">
-            <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height:252px;">
-                    <div class="user-info">
-                        <img src="../../assets/img/img.jpg" class="user-avator" alt />
-                        <div class="user-info-cont">
-                            <div class="user-info-name">{{name}}</div>
-                            <div>{{role}}</div>
-                        </div>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录时间：
-                        <span>2019-11-01</span>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录地点：
-                        <span>东莞</span>
-                    </div>
-                </el-card>
-                <el-card shadow="hover" style="height:252px;">
-                    <div slot="header" class="clearfix">
-                        <span>语言详情</span>
-                    </div>Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-                    <el-progress :percentage="13.7"></el-progress>HTML
-                    <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
-                </el-card>
-            </el-col>
-            <el-col :span="16">
-                <el-row :gutter="20" class="mgb20">
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-1">
-                                <i class="el-icon-lx-people grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-2">
-                                <i class="el-icon-lx-notice grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
-                                    <div>系统消息</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-3">
-                                <i class="el-icon-lx-goods grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>数量</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-                <el-card shadow="hover" style="height:403px;">
-                    <div slot="header" class="clearfix">
-                        <span>待办事项</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
-                    </div>
-                    <el-table :show-header="false" :data="todoList" style="width:100%;">
-                        <el-table-column width="40">
-                            <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.status"></el-checkbox>
-                            </template>
-                        </el-table-column>
-                        <el-table-column>
-                            <template slot-scope="scope">
-                                <div
-                                    class="todo-item"
-                                    :class="{'todo-item-del': scope.row.status}"
-                                >{{scope.row.title}}</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column width="60">
-                            <template>
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-card>
-            </el-col>
-        </el-row>
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row>
+    <div style="display: flex">
+<!--        <div style="display: flex;margin-left: 10px;-->
+<!--                    flex-flow: column;width: 50%;margin-right: 20px">-->
+            <el-card style="height: 500px;width: 50%;margin-right: 10px" shadow="hover">
+                <div id="BarChart" style="width: 100%;height: 400px"></div>
+            </el-card >
+            <el-card  shadow="hover" style="width: 50%;">
+               <div id="pieChart" style="width: 100%;height: 400px"></div>
+            </el-card>
+<!--        </div>-->
+
+        <div>
+
+        </div>
     </div>
 </template>
 
 <script>
-import Schart from 'vue-schart';
-import bus from '../common/bus';
+import * as echarts from 'echarts'
 export default {
     name: 'dashboard',
     data() {
@@ -218,47 +124,135 @@ export default {
             }
         };
     },
-    components: {
-        Schart
-    },
     computed: {
         role() {
             return this.name === 'admin' ? '超级管理员' : '普通用户';
         }
     },
-    // created() {
-    //     this.handleListener();
-    //     this.changeDate();
-    // },
-    // activated() {
-    //     this.handleListener();
-    // },
-    // deactivated() {
-    //     window.removeEventListener('resize', this.renderChart);
-    //     bus.$off('collapse', this.handleBus);
-    // },
+    mounted() {
+        this.drawBarchart()
+        this.drawPieChart()()
+    },
     methods: {
+        drawPieChart(){
+            let myChart = echarts.init(document.getElementById('pieChart'));
+            let option = {
+                title: {
+                    text: '年度访问比率',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                },
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '50%',
+                        data: [
+                            {value: 1048, name: '2021'},
+                            {value: 735, name: '2020'},
+                            {value: 580, name: '2019'},
+                            {value: 484, name: '2018'},
+                            {value: 300, name: '2017'}
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option)
+        },
         changeDate() {
             const now = new Date().getTime();
             this.data.forEach((item, index) => {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
             });
+        },
+        drawBarchart(){
+            let myChart = echarts.init(document.getElementById('BarChart'));
+            let option = {
+                title: {
+                    text: '2019年龄分布',//
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['男', '女']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                grid:{
+                    y:30,
+                    y2:30
+                },
+                series: [
+                    {
+                        name: '男',
+                        type: 'bar',
+                        data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                        // markPoint: {
+                        //     data: [
+                        //         {type: 'max', name: '最大值'},
+                        //         {type: 'min', name: '最小值'}
+                        //     ]
+                        // },
+                        // markLine: {
+                        //     data: [
+                        //         {type: 'average', name: '平均值'}
+                        //     ]
+                        // }
+                    },
+                    {
+                        name: '女',
+                        type: 'bar',
+                        data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                        // markPoint: {
+                        //     data: [
+                        //         {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
+                        //         {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                        //     ]
+                        // },
+                        // markLine: {
+                        //     data: [
+                        //         {type: 'average', name: '平均值'}
+                        //     ]
+                        // }
+                    }
+                ]
+            };
+            myChart.setOption(option)
         }
-        // handleListener() {
-        //     bus.$on('collapse', this.handleBus);
-        //     // 调用renderChart方法对图表进行重新渲染
-        //     window.addEventListener('resize', this.renderChart);
-        // },
-        // handleBus(msg) {
-        //     setTimeout(() => {
-        //         this.renderChart();
-        //     }, 200);
-        // },
-        // renderChart() {
-        //     this.$refs.bar.renderChart();
-        //     this.$refs.line.renderChart();
-        // }
     }
 };
 </script>
@@ -374,3 +368,20 @@ export default {
     height: 300px;
 }
 </style>
+<!--                <el-card shadow="hover" class="mgb20" style="height:252px;">-->
+<!--                    <div class="user-info">-->
+<!--                        <img src="../../assets/img/img.jpg" class="user-avator" alt />-->
+<!--                        <div class="user-info-cont">-->
+<!--                            <div class="user-info-name">{{name}}</div>-->
+<!--                            <div>{{role}}</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="user-info-list">-->
+<!--                        上次登录时间：-->
+<!--                        <span>2019-11-01</span>-->
+<!--                    </div>-->
+<!--                    <div class="user-info-list">-->
+<!--                        上次登录地点：-->
+<!--                        <span>东莞</span>-->
+<!--                    </div>-->
+<!--                </el-card>-->
