@@ -61,36 +61,49 @@ export default {
                     index: 'dashboard',
                     title: '系统首页'
                 },
-
+                {
+                  icon: 'el-icon-pie-chart',
+                  index: 'Monitor',
+                  title: '监控管理'
+                },
                 {
                     icon: 'el-icon-lx-calendar',
                     index: '3',
                     title: '老年人信息管理',
                     subs: [
                         {
-                            index: 'old',
+                            index: 'worker',
                             title: '老年人信息'
                         },
                         {
-                            index: '3-2',
-                            title: 'emmmm',
-                            subs: [
-                                {
-                                    index: 'editor',
-                                    title: '富文本编辑器'
-                                },
-                                {
-                                    index: 'markdown',
-                                    title: 'markdown编辑器'
-                                }
-                            ]
+                            index: 'worker',
+                            title: '年龄及健康状态统计',
                         },
                         {
                             index: 'upload',
-                            title: 'emmmm'
+                            title: '添加老人'
                         }
                     ]
                 },
+               {
+                icon: 'el-icon-rank',
+                index: '6',
+                title: '老年人事件管理',
+                subs: [
+                    {
+                        index: 'drag',
+                        title: '事件信息'
+                    },
+                    {
+                        index: 'dialog',
+                        title: '添加事件'
+                    },
+                  {
+                    index: 'drag',
+                    title: '事件统计'
+                  },
+                ]
+            },
                 {
                     icon: 'el-icon-lx-cascades',
                     index: 'worker',
@@ -106,26 +119,8 @@ export default {
                     index: 'icon',
                     title: '数据管理'
                 },
-                {
-                    icon: 'el-icon-pie-chart',
-                    index: 'charts',
-                    title: '摄像头管理'
-                },
-               /* {
-                    icon: 'el-icon-rank',
-                    index: '6',
-                    title: '拖拽组件',
-                    subs: [
-                        {
-                            index: 'drag',
-                            title: '拖拽列表'
-                        },
-                        {
-                            index: 'dialog',
-                            title: '拖拽弹框'
-                        }
-                    ]
-                },*/
+
+
               /*  {
                     icon: 'el-icon-lx-global',
                     index: 'i18n',
