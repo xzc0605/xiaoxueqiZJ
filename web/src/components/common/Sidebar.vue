@@ -135,7 +135,7 @@ export default {
                 },*/
                 {
                     icon: 'el-icon-lx-warn',
-                    index: '7',
+                    index: '8',
                     title: '系统管理模块',
                     subs: [
                         {

@@ -18,7 +18,7 @@
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="name" label="用户名"></el-table-column>
                 <el-table-column prop="address" label="地址"></el-table-column>
-                <el-table-column prop="date" label="邮箱"></el-table-column>
+                <el-table-column prop="email" label="邮箱"></el-table-column>
                 <el-table-column prop="phone" label="联系方式"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
