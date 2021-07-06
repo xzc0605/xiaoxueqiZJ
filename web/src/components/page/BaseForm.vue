@@ -11,14 +11,14 @@
         <div class="container">
             <div class="form-box">
                 <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item label="表单名称">
+                    <el-form-item label="老人名字">
                         <el-input v-model="form.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="选择器">
+                    <el-form-item label="性别">
                         <el-select v-model="form.region" placeholder="请选择">
-                            <el-option key="bbk" label="步步高" value="bbk"></el-option>
-                            <el-option key="xtc" label="小天才" value="xtc"></el-option>
-                            <el-option key="imoo" label="imoo" value="imoo"></el-option>
+                            <el-option key="bbk" label="男" value="m"></el-option>
+                            <el-option key="xtc" label="女" value="fm"></el-option>
+
                         </el-select>
                     </el-form-item>
                     <el-form-item label="日期时间">

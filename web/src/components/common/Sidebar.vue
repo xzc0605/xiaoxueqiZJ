@@ -72,15 +72,15 @@ export default {
                     title: '老年人信息管理',
                     subs: [
                         {
-                            index: 'worker',
+                            index: 'old',
                             title: '老年人信息'
                         },
                         {
-                            index: 'worker',
+                            index: 'dashboard',
                             title: '年龄及健康状态统计',
                         },
                         {
-                            index: 'upload',
+                            index: ' add',
                             title: '添加老人'
                         }
                     ]
