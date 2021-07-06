@@ -6,66 +6,36 @@
             </el-breadcrumb>
         </div>
         <div class="container">
-            <el-tabs v-model="message">
-                <el-tab-pane :label="`未读消息(${unread.length})`" name="first">
-                    <el-table :data="unread" :show-header="false" style="width: 100%">
-                        <el-table-column>
-                            <template slot-scope="scope">
-                                <span class="message-title">{{scope.row.title}}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="date" width="180"></el-table-column>
-                        <el-table-column width="120">
-                            <template slot-scope="scope">
-                                <el-button size="small" @click="handleRead(scope.$index)">标为已读</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <div class="handle-row">
-                        <el-button type="primary">全部标为已读</el-button>
-                    </div>
-                </el-tab-pane>
-                <el-tab-pane :label="`已读消息(${read.length})`" name="second">
-                    <template v-if="message === 'second'">
-                        <el-table :data="read" :show-header="false" style="width: 100%">
-                            <el-table-column>
-                                <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="date" width="150"></el-table-column>
-                            <el-table-column width="120">
-                                <template slot-scope="scope">
-                                    <el-button type="danger" @click="handleDel(scope.$index)">删除</el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="handle-row">
-                            <el-button type="danger">删除全部</el-button>
-                        </div>
+            <el-table
+                    :data="tableData"
+                    border
+                    class="table"
+                    ref="multipleTable"
+                    header-cell-class-name="table-header"
+                    @selection-change="handleSelectionChange"
+            >
+                <el-table-column type="selection" width="55" align="center"></el-table-column>
+                <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+                <el-table-column prop="name" label="用户名"></el-table-column>
+                <el-table-column prop="address" label="地址"></el-table-column>
+                <el-table-column prop="date" label="邮箱"></el-table-column>
+                <el-table-column prop="phone" label="联系方式"></el-table-column>
+                <el-table-column label="操作" width="180" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                                type="text"
+                                icon="el-icon-edit"
+                                @click="handleEdit(scope.$index, scope.row)"
+                        >编辑</el-button>
+                        <el-button
+                                type="text"
+                                icon="el-icon-delete"
+                                class="red"
+                                @click="handleDelete(scope.$index, scope.row)"
+                        >删除</el-button>
                     </template>
-                </el-tab-pane>
-                <el-tab-pane :label="`回收站(${recycle.length})`" name="third">
-                    <template v-if="message === 'third'">
-                        <el-table :data="recycle" :show-header="false" style="width: 100%">
-                            <el-table-column>
-                                <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="date" width="150"></el-table-column>
-                            <el-table-column width="120">
-                                <template slot-scope="scope">
-                                    <el-button @click="handleRestore(scope.$index)">还原</el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="handle-row">
-                            <el-button type="danger">清空回收站</el-button>
-                        </div>
-                    </template>
-                </el-tab-pane>
-            </el-tabs>
+                </el-table-column>
+            </el-table>
         </div>
     </div>
 </template>
@@ -91,7 +61,49 @@
                 recycle: [{
                     date: '2018-04-19 20:00:00',
                     title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-                }]
+                }],
+                tableData: [{
+                    "id": 1,
+                    "name": "张三",
+                    "money": 123,
+                    "address": "广东省东莞市长安镇",
+                    "state": "成功",
+                    "date": "2019-11-1",
+                    unit:'101',
+                    phone:1111111,
+                },
+                    {
+                        "id": 2,
+                        "name": "李四",
+                        "money": 456,
+                        "address": "广东省广州市白云区",
+                        "state": "成功",
+                        "date": "2019-10-11",
+                        unit:'101',
+                        phone:1111111,
+                    },
+                    {
+                        "id": 3,
+                        "name": "王五",
+                        "money": 789,
+                        "address": "湖南省长沙市",
+                        "state": "失败",
+                        "date": "2019-11-11",
+                        unit:'101',
+                        phone:1111111,
+                    },
+                    {
+                        "id": 4,
+                        "name": "赵六",
+                        "money": 1011,
+                        "address": "福建省厦门市鼓浪屿",
+                        "state": "成功",
+                        "date": "2019-10-20",
+                        unit:'101',
+                        phone:1111111,
+                        email:'111@163.com'
+                    }
+                ],
             }
         },
         methods: {

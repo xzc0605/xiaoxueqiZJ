@@ -106,13 +106,20 @@ export default {
             },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'worker',
-                    title: '工作人员信息管理'
-                },
-                {
-                    icon: 'el-icon-lx-copy',
-                    index: 'tabs',
-                    title: '义工信息管理'
+                    index: '7',
+                    title: '人员管理',
+                    subs: [
+                        {
+                            icon: 'el-icon-lx-cascades',
+                            index: 'worker',
+                            title: '工作人员信息管理'
+                        },
+                        {
+                            icon: 'el-icon-lx-copy',
+                            index: 'tabs',
+                            title: '义工信息管理'
+                        },
+                    ],
                 },
                 {
                     icon: 'el-icon-lx-emoji',
