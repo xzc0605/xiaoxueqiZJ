@@ -25,8 +25,8 @@ export default new Router({
                     meta: { title: '自定义图标' }
                 },
                 {
-                    path: '/worker',
-                    component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseTable.vue'),
+                    path: '/ add',
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseForm.vue'),
                     meta: { title: '基础表格' }
                 },
                 {
@@ -36,7 +36,7 @@ export default new Router({
                 },
                 {
                     path: '/old',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/OldPersonInfo.vue'),
                     meta: { title: '老年人信息' }
                 },
                 {

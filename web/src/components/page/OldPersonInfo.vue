@@ -104,7 +104,7 @@
 <script>
 import { fetchData } from '../../api/index';
 export default {
-    name: 'basetable',
+    name: 'OldPersonInfo',
     data() {
         return {
             query: {
