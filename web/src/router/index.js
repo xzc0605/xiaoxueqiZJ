@@ -37,7 +37,7 @@ export default new Router({
                 {
                     path: '/old',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
-                    meta: { title: '基本表单' }
+                    meta: { title: '老年人信息' }
                 },
                 {
                     // 富文本编辑器组件
@@ -59,9 +59,9 @@ export default new Router({
                 },
                 {
                     // vue-schart组件
-                    path: '/charts',
-                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/BaseCharts.vue'),
-                    meta: { title: 'schart图表' }
+                    path: '/Monitor',
+                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/Monitors.vue'),
+                    meta: { title: '监控管理' }
                 },
                 {
                     // 拖拽列表组件
