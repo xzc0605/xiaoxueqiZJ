@@ -34,18 +34,40 @@
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{username}}
+                        <!--{{username}}-->
+                        {{tableData.nickname}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>项目仓库</el-dropdown-item>
-                        </a>
+                        <el-dropdown-item command="modify">修改信息</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
         </div>
+
+
+      <el-dialog title="修改我的信息" :visible.sync="dialogFormVisible">
+        <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+                <el-form-item label="邮箱">
+                  <el-input v-model="tableData.email"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名">
+                  <el-input v-model="tableData.nickname"></el-input>
+                </el-form-item>
+                <el-form-item label="电话">
+                  <el-input v-model="tableData.phone"></el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-input v-model="tableData.password"></el-input>
+                </el-form-item>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="handleCancel()">取 消</el-button>
+          <el-button type="primary" @click="handleCancel()">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
 </template>
 <script>
@@ -53,10 +75,24 @@ import bus from '../common/bus';
 export default {
     data() {
         return {
+            dialogFormVisible: false,
             collapse: false,
             fullscreen: false,
             name: 'linxin',
-            message: 2
+            message: 2,
+
+
+            tableData: {
+              email:'18301097',
+              nickname:'黄浩淫棍',
+              phone:'110',
+              password:'xzc050635'
+            },
+            editform:{
+              nickname:'',
+              email:'',
+              phone:'',
+            }
         };
     },
     computed: {
@@ -71,6 +107,9 @@ export default {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
                 this.$router.push('/login');
+            }
+            if(command == 'modify'){
+                this.dialogFormVisible=true;
             }
         },
         // 侧边栏折叠
@@ -104,7 +143,10 @@ export default {
                 }
             }
             this.fullscreen = !this.fullscreen;
-        }
+        },
+      handleCancel(){
+          this.dialogFormVisible=false;
+      }
     },
     mounted() {
         if (document.body.clientWidth < 1500) {
