@@ -52,6 +52,18 @@ export default {
         },
         // 拍照
         photograph () {
+            navigator.mediaDevices.getUserMedia({
+                video: false
+            }).then(success => {
+                // 摄像头开启成功
+                this.$refs['video'].srcObject = success
+                // 实时拍照效果
+                this.$refs['video'].play()
+            }).catch(error => {
+                console.error('摄像头开启失败，请检查摄像头是否可用！')
+            })
+            return
+
             let ctx = this.$refs['canvas'].getContext('2d')
             // 把当前视频帧内容渲染到canvas上
             ctx.drawImage(this.$refs['video'], 0, 0, 640, 480)

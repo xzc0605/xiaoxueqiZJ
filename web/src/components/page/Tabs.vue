@@ -36,17 +36,49 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <div style="margin-bottom: 40px;margin-top: 10px;">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handlePageChange"
+                        :page-sizes="[10, 20, 50, 100, 500, 1000]"
+                        :current-page="listForm1.page"
+                        :page-size="listForm1.size"
+                        :total="listForm1.total"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        style="float: left;padding: 0px"
+                ></el-pagination>
+                <div style="float: right"><el-button type="primary" size="mini" @click="addVisible=true">添加人员</el-button></div>
+            </div>
         </div>
+        <el-dialog
+                :title="'添加人员'"
+                :visible.sync="addVisible"
+                width="500px"
+                cente
+                :modal-append-to-body="false">
+            <div>
+<!--                缺啥到时候补什么-->
+                <addPeople></addPeople>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="updateNecessaryStudent()" type="primary">确 定</el-button>
+                <el-button @click="addVisible = false">取 消</el-button>
+              </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+    import addPeople from "../common/addPeople";
     export default {
         name: 'tabs',
+        components:{addPeople},
         data() {
             return {
                 message: 'first',
                 showHeader: false,
+                listForm1:{},
+                addVisible:false,
                 unread: [{
                     date: '2018-04-19 20:00:00',
                     title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护',
@@ -134,11 +166,25 @@
 </script>
 
 <style>
+    .display-row {
+        display: -webkit-flex; /* Safari */
+        -webkit-justify-content: flex-start; /* Safari 6.1+ */
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
 .message-title{
     cursor: pointer;
 }
 .handle-row{
     margin-top: 30px;
 }
+    .row-left {
+        width: 6%;
+    }
+
+    .row-right{
+        width: 50%;
+    }
 </style>
 
