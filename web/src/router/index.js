@@ -30,8 +30,13 @@ export default new Router({
                     meta: { title: '基础表格' }
                 },
                 {
-                    path: '/tabs',
-                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
+                    path: '/volunteer',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/volunteer.vue'),
+                    meta: { title: 'tab选项卡' }
+                },
+                {
+                    path: '/work',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/volunteer.vue'),
                     meta: { title: 'tab选项卡' }
                 },
                 {

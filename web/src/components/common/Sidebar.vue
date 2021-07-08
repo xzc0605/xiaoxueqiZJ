@@ -116,7 +116,7 @@ export default {
                         },
                         {
                             icon: 'el-icon-lx-copy',
-                            index: 'tabs',
+                            index: 'volunteer',
                             title: '义工信息管理'
                         },
                     ],
