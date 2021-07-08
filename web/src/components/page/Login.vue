@@ -89,20 +89,23 @@ export default {
         return {
           showL: true,
           showR: false,
-
-          form: {
+        /*  login:{
             email: "",
             password: "",
-            repassword: "",
-            sex:'',
-            nickname: "",
-            phone: ""
+          },*/
+          form: {
+            email: "",//邮箱
+            password: "",//密码
+            repassword: "",//这个不用管 是确认密码
+            sex:'',//性别
+            nickname: "",//姓名
+            phone: ""//电话号
           },
 
-            param: {
+            /*param: {
                 username: 'admin',
                 password: '123123',
-            },
+            },*/
 
           //表单的验证规则对象
           rules: {
@@ -123,18 +126,26 @@ export default {
     methods: {
         async Login() {
             this.$refs.login.validate(async valid => {
-                if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
+                if (!valid) {
+
+
+                  this.$message.error('请输入账号和密码');
+                  console.log('error submit!!');
+                  return false;
                 } else {
-                    this.$message.error('请输入账号和密码');
-                    console.log('error submit!!');
-                    return false;
+                 await axios({
+                    methods: 'get',
+                    url: axios.defaults.baseURL + '',
+                    params: this.form
+                  }).then((res) => {
+                    this.$message.success('登录成功');
+                    /*  localStorage.setItem('ms_username', this.param.username);*/
+                    /*   this.$router.push('/');*/
+                  })
                 }
             });
         },
-      Register(){
+      async Register(){
         if (this.form.email.length === 0) {
           this.$message.error("邮箱不得为空")
           return;
@@ -162,7 +173,25 @@ export default {
               }
 
         })
+       /* const {data: res} = await this.$http.get(axios.defaults.baseURL + 'insert_SysUser', this.form)*/
+        await axios({
+          methods: 'get',
+          url:axios.defaults.baseURL+'insert_SysUser',
+          params:this.form
+        }).then((res) => {
+
+          if (res.data.error === '1') {
+              this.$message.success("接收到了信息")
+              /*  alert(res.data.id)
+              alert(res.data.messages)
+              console.log(res)*/
+              this.toLogin();
+          } else {
+            this.$message.error("未接收到信息")
+          }
+        })
       },
+
       toRegister() {
         this.showL = false;
         this.showR = true;
