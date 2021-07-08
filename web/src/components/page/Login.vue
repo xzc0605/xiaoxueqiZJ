@@ -21,12 +21,7 @@
 
               <el-form-item prop="username" v-show="showR">
                 <el-input v-model="form.email" placeholder="email">
-                  <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
-                </el-input>
-              </el-form-item>
-              <el-form-item prop="username" v-show="showR">
-                <el-input v-model="form.phone" placeholder="phone">
-                  <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+                  <el-button slot="prepend" icon="el-icon-postcard"></el-button>
                 </el-input>
               </el-form-item>
               <el-form-item prop="username" v-show="showR">
@@ -34,6 +29,20 @@
                   <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                 </el-input>
               </el-form-item>
+              <el-form-item prop="username" v-show="showR">
+                <el-button  icon="el-icon-male"></el-button>
+                <el-select style="width:84.6%" v-model="form.sex" placeholder="性别">
+
+                  <el-option label="男" value="m"></el-option>
+                  <el-option label="女" value="f"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item prop="username" v-show="showR">
+                <el-input v-model="form.phone" placeholder="phone">
+                  <el-button slot="prepend" icon="el-icon-phone-outline"></el-button>
+                </el-input>
+              </el-form-item>
+
               <el-form-item prop="password" v-show="showR">
                 <el-input
                     type="password"
@@ -74,27 +83,29 @@
 </template>
 
 <script>
-    import API from "../../api";
-    import Cookies from 'js-cookie'
-    import axios from 'axios'
+import axios from 'axios'
 export default {
     data: function() {
         return {
           showL: true,
           showR: false,
-
-          form: {
+        /*  login:{
             email: "",
             password: "",
-            repassword: "",
-            nickname: "",
-            phone: ""
+          },*/
+          form: {
+            email: "",//邮箱
+            password: "",//密码
+            repassword: "",//这个不用管 是确认密码
+            sex:'',//性别
+            nickname: "",//姓名
+            phone: ""//电话号
           },
 
-            param: {
+            /*param: {
                 username: 'admin',
                 password: '123123',
-            },
+            },*/
 
           //表单的验证规则对象
           rules: {
@@ -104,7 +115,7 @@ export default {
             password: [
               {required: true, message: '请输入密码', trigger: 'blur'},
               {min: 3, max: 10, message: '长度在3到10个字符之间', trigger: 'blur'}
-            ]
+            ],
           }
            /* rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -115,35 +126,42 @@ export default {
     methods: {
         async Login() {
             this.$refs.login.validate(async valid => {
-                if (valid) {
-                    this.$message.success('登录成功');
-                    let data={
-                        email:this.param.username,
-                        password:this.param.password
-                    }
-                    axios.get('http://xx.com/api/user/register',{params:{data}}).then(res=>{
-                        if(res.error_code!==0){
-                            this.$message.error(res.desc)
-                            return
-                        }
-                        Cookies.set(res.content)
-                        this.$router.push('/dashboard');
-                    })
-                    // localStorage.setItem('ms_username', this.param.username);
+                if (!valid) {
 
+
+                  this.$message.error('请输入账号和密码');
+                  console.log('error submit!!');
+                  return false;
                 } else {
-                    this.$message.error('请输入账号和密码');
-                    console.log('error submit!!');
-                    return false;
+                 await axios({
+                    methods: 'get',
+                    url: axios.defaults.baseURL + '',
+                    params: this.form
+                  }).then((res) => {
+                    this.$message.success('登录成功');
+                    /*  localStorage.setItem('ms_username', this.param.username);*/
+                    /*   this.$router.push('/');*/
+                  })
                 }
             });
         },
-      Register(){
+      async Register(){
         if (this.form.email.length === 0) {
           this.$message.error("邮箱不得为空")
           return;
         }
-
+        if (this.form.sex.length === 0) {
+          this.$message.error("请选择性别")
+          return;
+        }
+        if (this.form.phone.length === 0) {
+          this.$message.error("请填写电话号")
+          return;
+        }
+        if (this.form.nickname.length === 0) {
+          this.$message.error("请填写姓名")
+          return;
+        }
         this.$refs.login.validate(async valid => {
               if (!valid) {
                 this.$message.error("输入格式错误")
@@ -153,20 +171,27 @@ export default {
                 this.$message.error("两次输入密码不一致")
                 return;
               }
-              let data=this.form
-              delete data.repassword
-              API.register(data).then(res=>{
-                  if(res.error_code!==0){
-                      this.$message.error(res.desc)
-                      return
-                  }
-                  Cookies.set(res.content)
-                  this.$router.push('/dashboard');
-              })
-
 
         })
+       /* const {data: res} = await this.$http.get(axios.defaults.baseURL + 'insert_SysUser', this.form)*/
+        await axios({
+          methods: 'get',
+          url:axios.defaults.baseURL+'insert_SysUser',
+          params:this.form
+        }).then((res) => {
+
+          if (res.data.error === '1') {
+              this.$message.success("接收到了信息")
+              /*  alert(res.data.id)
+              alert(res.data.messages)
+              console.log(res)*/
+              this.toLogin();
+          } else {
+            this.$message.error("未接收到信息")
+          }
+        })
       },
+
       toRegister() {
         this.showL = false;
         this.showR = true;
@@ -174,6 +199,22 @@ export default {
         this.form.password = "";
         this.form.email = "";
         this.form.phone = "";
+
+/*        axios({
+          methods: 'get',
+          url: axios.defaults.baseURL + 'userInfo',
+          params: this.infoUser
+        }).then((res) => {
+          this.$message.success("接收到了信息")
+          console.log(res)
+          if (res.data.code === '000000') {
+
+          } else {
+            this.$message.error(res.data.desc)
+          }
+        })*/
+
+
       },
       toLogin() {
         this.showL = true;
@@ -182,6 +223,7 @@ export default {
         this.form.password = "";
         this.form.email = "";
         this.form.nickname="";
+        this.form.sex="";
       }
     },
 };
