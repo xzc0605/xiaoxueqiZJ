@@ -53,7 +53,7 @@
         <el-dialog
                 :title="'添加人员'"
                 :visible.sync="addVisible"
-                width="500px"
+                width="1000px"
                 cente
                 :modal-append-to-body="false">
             <div>

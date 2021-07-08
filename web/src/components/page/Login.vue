@@ -74,6 +74,9 @@
 </template>
 
 <script>
+    import API from "../../api";
+    import Cookies from 'js-cookie'
+    import axios from 'axios'
 export default {
     data: function() {
         return {
@@ -114,8 +117,20 @@ export default {
             this.$refs.login.validate(async valid => {
                 if (valid) {
                     this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
+                    let data={
+                        email:this.param.username,
+                        password:this.param.password
+                    }
+                    axios.get('http://xx.com/api/user/register',{params:{data}}).then(res=>{
+                        if(res.error_code!==0){
+                            this.$message.error(res.desc)
+                            return
+                        }
+                        Cookies.set(res.content)
+                        this.$router.push('/dashboard');
+                    })
+                    // localStorage.setItem('ms_username', this.param.username);
+
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');
@@ -138,6 +153,17 @@ export default {
                 this.$message.error("两次输入密码不一致")
                 return;
               }
+              let data=this.form
+              delete data.repassword
+              API.register(data).then(res=>{
+                  if(res.error_code!==0){
+                      this.$message.error(res.desc)
+                      return
+                  }
+                  Cookies.set(res.content)
+                  this.$router.push('/dashboard');
+              })
+
 
         })
       },
