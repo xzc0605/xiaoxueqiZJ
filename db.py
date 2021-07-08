@@ -20,7 +20,8 @@ def print(*arg):
         os.makedirs(output_dir)
         log_name = 'log.txt'  # 日志文件名称
         filename = os.path.join(output_dir, log_name)
-        rewrite_print("日志文档生成时间：" + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n", file=open(filename, "a"))
+        rewrite_print("日志文档生成时间：" + datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n",
+                      file=open(filename, "a"))
         # print('新建log文件夹')
     log_name = 'log.txt'  # 日志文件名称
     filename = os.path.join(output_dir, log_name)
@@ -72,7 +73,7 @@ class MysqlManager(object):
         if style == '2':
             sql = "UPDATE %s SET created= ('%s'), createby=('18301113') WHERE id = ('%s') """ % (cell, now_time, id)
         # 构建sql语句
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
         print("语句执行完毕")
@@ -147,21 +148,21 @@ class MysqlManager(object):
             # self.save_time("1", "employee_info", id)
 
     #  插入系统管理员信息,number:4
-    def insert_SysUser(self, username, gender, phone, id_card):
+    def insert_SysUser(self, email, password, sex, nickname, phone):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
         try:
             # 构建sql语句
-            sql = "INSERT INTO sys_user (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-                username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+            sql = "INSERT INTO sys_user (email,password,sex,username,phone,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
+                email, password, sex, nickname, phone, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
             print("正在执行语句：" + sql)
             self.__cursor.execute(sql)
             self.__connect.commit()
             print("语句执行完毕")
-        except Exception as error:
-            print('插入系统管理员信息出错' + error)
-            return error
+        # except Exception as error:
+        #     print('插入系统管理员信息出错' + error)
+        #     return error
         finally:
             self._close_db()
             #  自动存储时间
@@ -217,7 +218,7 @@ class MysqlManager(object):
         # condition_data = ''.join(condition_list)
         # 构建sql语句
         sql = "DELETE FROM oldperson_info WHERE id=('%s')""" % id
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
         print("语句执行完毕")
@@ -228,7 +229,7 @@ class MysqlManager(object):
         self._connect_db()
         # 构建sql语句
         sql = "DELETE FROM volunteer_info WHERE id=('%s')""" % id
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
         print("语句执行完毕")
@@ -239,7 +240,7 @@ class MysqlManager(object):
         self._connect_db()
         # 构建sql语句
         sql = "DELETE FROM employee_info WHERE id=('%s')""" % id
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
         print("语句执行完毕")
@@ -249,7 +250,7 @@ class MysqlManager(object):
     def select_OldPerson(self):
         self._connect_db()
         sql = "SELECT * FROM oldperson_info"
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         result = self.__cursor.fetchall()
         print("语句执行完毕")
@@ -258,7 +259,8 @@ class MysqlManager(object):
         for row in result:
             data = {'uid': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
                     'birthday': row[7], 'checkin_date': row[8], 'checkout_date': row[9], 'imgset_dir': row[10],
-                    'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13], 'firstguardian_relationship': row[14],
+                    'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13],
+                    'firstguardian_relationship': row[14],
                     'firstguardian_phone': row[15], 'firstguardian_wechat': row[16],
                     'secondguardian_name': row[17], 'secondguardian_relationship': row[18],
                     'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
@@ -270,7 +272,7 @@ class MysqlManager(object):
     def select_Volunteer(self):
         self._connect_db()
         sql = "SELECT * FROM volunteer_info"
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         result = self.__cursor.fetchall()
         print("语句执行完毕")
@@ -278,7 +280,8 @@ class MysqlManager(object):
         jsonData = []
         for row in result:
             data = {'uid': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                    'birthday': row[7], 'checkin_date': row[8], 'checkout_date': row[9], 'imgset_dir': row[10], 'profile_photo': row[11]}
+                    'birthday': row[7], 'checkin_date': row[8], 'checkout_date': row[9], 'imgset_dir': row[10],
+                    'profile_photo': row[11]}
             jsonData.append(data)
         print(data)
         return jsonData
@@ -287,7 +290,7 @@ class MysqlManager(object):
     def select_Employee(self):
         self._connect_db()
         sql = "SELECT * FROM employee_info"
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         result = self.__cursor.fetchall()
         print("语句执行完毕")
@@ -295,7 +298,8 @@ class MysqlManager(object):
         jsonData = []
         for row in result:
             data = {'uid': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                    'birthday': row[7], 'hire_date': row[8], 'resign_date': row[9], 'imgset_dir': row[10], 'profile_photo': row[11]}
+                    'birthday': row[7], 'hire_date': row[8], 'resign_date': row[9], 'imgset_dir': row[10],
+                    'profile_photo': row[11]}
             jsonData.append(data)
         print(data)
         return jsonData
@@ -305,10 +309,81 @@ class MysqlManager(object):
         self._connect_db()
         # 构建sql语句
         sql = "UPDATE sys_user SET Password = ('%s') WHERE id = ('%s') """ % (id, password)
-        print("正在执行语句："+sql)
+        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
         print("语句执行完毕")
         self._close_db()
         #  自动存储时间
         self.save_time("1", "sys_user", id)
+
+    # ------------------------------------------------------------------------------------------------------
+    # 管理员登录注册
+    # ------------------------------------------------------------------------------------------------------
+    def insert_resigter(self, UserName, Password, EMAIL, PHONE):
+        # 管理员的注册
+        '''
+            dbManager.insert(UserName,Password,EMAIL,PHONE)
+        添加数据到数据库
+
+        '''
+        # 用户传入数据字典列表数据，根据key, value添加进数据库
+        # 连接数据库
+        self._connect_db()
+
+        try:
+            # 构建sql语句
+            sql = "insert into sys_user (ORG_ID,CLIENT_ID,UserName,Password,EMAIL,PHONE) values ('1', '1','%s','%s','%s','%s')""" % (
+            UserName, Password, EMAIL, PHONE)
+
+            self.__cursor.execute(sql)
+            self.__connect.commit()
+        except Exception as error:
+            print('error')
+            return 0
+        finally:
+            self._close_db()
+            return 1
+
+    def get_resigter_sys_userID(self):
+        # 注册时获取管理员的ID
+
+        self._connect_db()
+
+        # 处理显示的数据
+
+        sql = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME= 'sys_user'"
+
+        self.__cursor.execute(sql)
+        print(sql)
+        # 返回一条数据
+        result = self.__cursor.fetchone()
+        self._close_db()
+        jsonData = []
+        data = {'ID': result}
+        jsonData.append(data)
+        print(jsonData)
+        return jsonData
+
+    # 登录检测并获取ID,number:15
+    def get_sys_user(self, EMAIL, Password):
+        self._connect_db()
+
+        sql = "select * from sys_user where EMAIL = '%s' and Password = '%s'""" % (EMAIL, Password)
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+
+        result = self.__cursor.fetchall()
+        self._close_db()
+        if (len(result)) == 1:
+            jsonData = []
+            for row in result:
+                num = row[0]
+            #     data = {'ID': row[0]}
+            #     jsonData.append(data)
+            # print(jsonData)
+            return num
+
+        else:
+            print("用户名不存在")
+            return "0"
