@@ -50,7 +50,7 @@
       <el-dialog title="修改我的信息" :visible.sync="dialogFormVisible">
         <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
                 <el-form-item label="邮箱">
-                  <el-input v-model="tableData.email"></el-input>
+                  <el-input v-model="tableData.email" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="姓名">
                   <el-input v-model="tableData.nickname"></el-input>
@@ -65,7 +65,7 @@
 
         <div slot="footer" class="dialog-footer">
           <el-button @click="handleCancel()">取 消</el-button>
-          <el-button type="primary" @click="handleCancel()">确 定</el-button>
+          <el-button type="primary" @click="handleEdit()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -83,13 +83,24 @@ export default {
             name: 'linxin',
             message: 2,
 
-            id:Cookies.get('userid'),
-            tableData: {
-              email:'18301097',
-              nickname:'黄浩淫棍',
-              phone:'110',
-              password:'xzc050635'
+
+            form:{
+              id:Cookies.get('userid'),
             },
+
+            tableData: {
+              email:'',
+              nickname:'',
+              phone:'',
+              password:''
+            },
+          ModifyData:{
+            id:Cookies.get('userid'),
+            email:'',
+            nickname:'',
+            phone:'',
+            password:''
+          },
             editform:{
               nickname:'',
               email:'',
@@ -97,13 +108,27 @@ export default {
             }
         };
     },
-    computed: {
-        username() {
-            let username = localStorage.getItem('ms_username');
-            return username ? username : this.name;
+ created() {
+      this.init()
+ },
+
+  methods: {
+    init(){
+      axios({
+        methods: 'get',
+        url: axios.defaults.baseURL + 'select_SysUser',
+        params: this.form
+      }).then((res) => {
+        if (res.data.error === '0') {
+          this.tableData.nickname=res.data.data.username,
+              this.tableData.email=res.data.data.email,
+              this.tableData.phone=res.data.data.phone,
+              this.tableData.password=res.data.data.password
+        }else{
+          this.$message.error("error")
         }
+      })
     },
-    methods: {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
@@ -112,6 +137,20 @@ export default {
             }
             if(command == 'modify'){
                 this.dialogFormVisible=true;
+           /*   axios({
+                methods: 'get',
+                url: axios.defaults.baseURL + 'select_SysUser',
+                params: this.form
+              }).then((res) => {
+                if (res.data.error === '0') {
+                      this.tableData.nickname=res.data.data.username,
+                      this.tableData.email=res.data.data.email,
+                      this.tableData.phone=res.data.data.phone,
+                      this.tableData.password=res.data.data.password
+                }else{
+                  this.$message.error("error")
+                }
+              })*/
             }
         },
         // 侧边栏折叠
@@ -148,7 +187,25 @@ export default {
         },
       handleCancel(){
           this.dialogFormVisible=false;
+      },
+      handleEdit(){
 
+        this.ModifyData.email=this.tableData.email
+        this.ModifyData.nickname=this.tableData.nickname
+        this.ModifyData.phone=this.tableData.phone
+        this.ModifyData.password=this.tableData.password
+        axios({
+          methods: 'get',
+          url: axios.defaults.baseURL + 'update_SysUser',
+          params: this.ModifyData
+        }).then((res) => {
+          if (res.data.error === '0') {
+            this.$message.success("修改成功")
+            this.dialogFormVisible=false
+          }else{
+            this.$message.error("error")
+          }
+        })
       }
     },
     mounted() {
