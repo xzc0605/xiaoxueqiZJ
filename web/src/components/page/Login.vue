@@ -84,11 +84,15 @@
 
 <script>
 import axios from 'axios'
+import Cookies from 'js-cookie'
 export default {
-    data: function() {
+  name:'login',
+  /*mounted() {
+    this.$router.push('/')
+  },*/
+  data: function() {
         return {
           showL: true,
-          showR: false,
         /*  login:{
             email: "",
             password: "",
@@ -102,10 +106,6 @@ export default {
             phone: ""//电话号
           },
 
-            /*param: {
-                username: 'admin',
-                password: '123123',
-            },*/
 
           //表单的验证规则对象
           rules: {
@@ -127,24 +127,31 @@ export default {
         async Login() {
             this.$refs.login.validate(async valid => {
                 if (!valid) {
-
-
                   this.$message.error('请输入账号和密码');
                   console.log('error submit!!');
                   return false;
                 } else {
+
                  await axios({
                     methods: 'get',
-                    url: axios.defaults.baseURL + '',
+                    url: axios.defaults.baseURL + 'login_SysUser',
                     params: this.form
                   }).then((res) => {
-                    this.$message.success('登录成功');
-                    /*  localStorage.setItem('ms_username', this.param.username);*/
-                    /*   this.$router.push('/');*/
+                   if (res.data.error === '0') {
+                      this.$message.success('登录成功');
+                       Cookies.set('userid',res.data.id)
+                       this.$router.push('/');
+                       alert(res.data.id)
+                   }else{
+                     this.$message.error(res.data.messages)
+                   }
                   })
                 }
             });
         },
+/*      Login(){
+        this.$router.push('/');
+      },*/
       async Register(){
         if (this.form.email.length === 0) {
           this.$message.error("邮箱不得为空")
@@ -180,7 +187,7 @@ export default {
           params:this.form
         }).then((res) => {
 
-          if (res.data.error === '1') {
+          if (res.data.error === '0') {
               this.$message.success("接收到了信息")
               /*  alert(res.data.id)
               alert(res.data.messages)

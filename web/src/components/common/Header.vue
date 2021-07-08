@@ -72,6 +72,7 @@
 </template>
 <script>
 import bus from '../common/bus';
+import Cookies from 'js-cookie'
 import axios from 'axios'
 export default {
     data() {
@@ -82,7 +83,7 @@ export default {
             name: 'linxin',
             message: 2,
 
-
+            id:Cookies.get('userid'),
             tableData: {
               email:'18301097',
               nickname:'黄浩淫棍',
