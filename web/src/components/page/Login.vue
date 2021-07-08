@@ -21,12 +21,7 @@
 
               <el-form-item prop="username" v-show="showR">
                 <el-input v-model="form.email" placeholder="email">
-                  <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
-                </el-input>
-              </el-form-item>
-              <el-form-item prop="username" v-show="showR">
-                <el-input v-model="form.phone" placeholder="phone">
-                  <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
+                  <el-button slot="prepend" icon="el-icon-postcard"></el-button>
                 </el-input>
               </el-form-item>
               <el-form-item prop="username" v-show="showR">
@@ -34,6 +29,20 @@
                   <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                 </el-input>
               </el-form-item>
+              <el-form-item prop="username" v-show="showR">
+                <el-button  icon="el-icon-male"></el-button>
+                <el-select style="width:84.6%" v-model="form.sex" placeholder="性别">
+
+                  <el-option label="男" value="m"></el-option>
+                  <el-option label="女" value="f"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item prop="username" v-show="showR">
+                <el-input v-model="form.phone" placeholder="phone">
+                  <el-button slot="prepend" icon="el-icon-phone-outline"></el-button>
+                </el-input>
+              </el-form-item>
+
               <el-form-item prop="password" v-show="showR">
                 <el-input
                     type="password"
@@ -74,6 +83,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data: function() {
         return {
@@ -84,6 +94,7 @@ export default {
             email: "",
             password: "",
             repassword: "",
+            sex:'',
             nickname: "",
             phone: ""
           },
@@ -101,7 +112,7 @@ export default {
             password: [
               {required: true, message: '请输入密码', trigger: 'blur'},
               {min: 3, max: 10, message: '长度在3到10个字符之间', trigger: 'blur'}
-            ]
+            ],
           }
            /* rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -128,7 +139,18 @@ export default {
           this.$message.error("邮箱不得为空")
           return;
         }
-
+        if (this.form.sex.length === 0) {
+          this.$message.error("请选择性别")
+          return;
+        }
+        if (this.form.phone.length === 0) {
+          this.$message.error("请填写电话号")
+          return;
+        }
+        if (this.form.nickname.length === 0) {
+          this.$message.error("请填写姓名")
+          return;
+        }
         this.$refs.login.validate(async valid => {
               if (!valid) {
                 this.$message.error("输入格式错误")
@@ -148,6 +170,22 @@ export default {
         this.form.password = "";
         this.form.email = "";
         this.form.phone = "";
+
+/*        axios({
+          methods: 'get',
+          url: axios.defaults.baseURL + 'userInfo',
+          params: this.infoUser
+        }).then((res) => {
+          this.$message.success("接收到了信息")
+          console.log(res)
+          if (res.data.code === '000000') {
+
+          } else {
+            this.$message.error(res.data.desc)
+          }
+        })*/
+
+
       },
       toLogin() {
         this.showL = true;
@@ -156,6 +194,7 @@ export default {
         this.form.password = "";
         this.form.email = "";
         this.form.nickname="";
+        this.form.sex="";
       }
     },
 };

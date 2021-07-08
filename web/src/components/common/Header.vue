@@ -72,6 +72,7 @@
 </template>
 <script>
 import bus from '../common/bus';
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -146,6 +147,7 @@ export default {
         },
       handleCancel(){
           this.dialogFormVisible=false;
+
       }
     },
     mounted() {
