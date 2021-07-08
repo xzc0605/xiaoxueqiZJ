@@ -18,95 +18,107 @@
         </div>
         <div class="container">
             <p style="text-align: center">本页面拟存放摄像头监控画面</p>
-            </div>
-
         </div>
+
+    </div>
 </template>
 
 <script>
-import Schart from 'vue-schart';
-export default {
-    name: 'Monitors',
-    components: {
+    import Schart from 'vue-schart';
+    export default {
+        name: 'Monitors',
+        components: {
 
-    },
-    data() {
-        return {
-
-        };
-    },
-    methods: {
-        // 调用摄像头
-        callCamera () {
-            // H5调用电脑摄像头API
-            navigator.mediaDevices.getUserMedia({
-                video: true
-            }).then(success => {
-                // 摄像头开启成功
-                this.$refs['video'].srcObject = success
-                // 实时拍照效果
-                this.$refs['video'].play()
-            }).catch(error => {
-                console.error('摄像头开启失败，请检查摄像头是否可用！')
-            })
         },
-        // 拍照
-        photograph () {
-            let ctx = this.$refs['canvas'].getContext('2d')
-            // 把当前视频帧内容渲染到canvas上
-            ctx.drawImage(this.$refs['video'], 0, 0, 640, 480)
-            // 转base64格式、图片格式转换、图片质量压缩
-            let imgBase64 = this.$refs['canvas'].toDataURL('image/jpeg', 0.7)
+        data() {
+            return {
 
-            // 由字节转换为KB 判断大小
-            let str = imgBase64.replace('data:image/jpeg;base64,', '')
-            let strLength = str.length
-            let fileLength = parseInt(strLength - (strLength / 8) * 2)
-            // 图片尺寸  用于判断
-            let size = (fileLength / 1024).toFixed(2)
-            console.log(size)
-
-            // 上传拍照信息  调用接口上传图片 .........
-
-            // 保存到本地
-            this.dialogCamera = false
-            let ADOM = document.createElement('a')
-            ADOM.href = this.headImgSrc
-            ADOM.download = new Date().getTime() + '.jpeg'
-            ADOM.click()
+            };
         },
-        // 关闭摄像头
-        closeCamera () {
-            if (!this.$refs['video'].srcObject) {
-                this.dialogCamera = false
+        methods: {
+            // 调用摄像头
+            callCamera () {
+                // H5调用电脑摄像头API
+                navigator.mediaDevices.getUserMedia({
+                    video: true
+                }).then(success => {
+                    // 摄像头开启成功
+                    this.$refs['video'].srcObject = success
+                    // 实时拍照效果
+                    this.$refs['video'].play()
+                }).catch(error => {
+                    console.error('摄像头开启失败，请检查摄像头是否可用！')
+                })
+            },
+            // 拍照
+            photograph () {
+                navigator.mediaDevices.getUserMedia({
+                    video: false
+                }).then(success => {
+                    // 摄像头开启成功
+                    this.$refs['video'].srcObject = success
+                    // 实时拍照效果
+                    this.$refs['video'].play()
+                }).catch(error => {
+                    console.error('摄像头开启失败，请检查摄像头是否可用！')
+                })
                 return
-            }
-            let stream = this.$refs['video'].srcObject
-            let tracks = stream.getTracks()
-            tracks.forEach(track => {
-                track.stop()
-            })
-            this.$refs['video'].srcObject = null
-        },
-    }
-};
+
+                let ctx = this.$refs['canvas'].getContext('2d')
+                // 把当前视频帧内容渲染到canvas上
+                ctx.drawImage(this.$refs['video'], 0, 0, 640, 480)
+                // 转base64格式、图片格式转换、图片质量压缩
+                let imgBase64 = this.$refs['canvas'].toDataURL('image/jpeg', 0.7)
+
+                // 由字节转换为KB 判断大小
+                let str = imgBase64.replace('data:image/jpeg;base64,', '')
+                let strLength = str.length
+                let fileLength = parseInt(strLength - (strLength / 8) * 2)
+                // 图片尺寸  用于判断
+                let size = (fileLength / 1024).toFixed(2)
+                console.log(size)
+
+                // 上传拍照信息  调用接口上传图片 .........
+
+                // 保存到本地
+                this.dialogCamera = false
+                let ADOM = document.createElement('a')
+                ADOM.href = this.headImgSrc
+                ADOM.download = new Date().getTime() + '.jpeg'
+                ADOM.click()
+            },
+            // 关闭摄像头
+            closeCamera () {
+                if (!this.$refs['video'].srcObject) {
+                    this.dialogCamera = false
+                    return
+                }
+                let stream = this.$refs['video'].srcObject
+                let tracks = stream.getTracks()
+                tracks.forEach(track => {
+                    track.stop()
+                })
+                this.$refs['video'].srcObject = null
+            },
+        }
+    };
 </script>
 
 <style scoped>
-.schart-box {
-    display: inline-block;
-    margin: 20px;
-}
-.schart {
-    width: 600px;
-    height: 400px;
-}
-.content-title {
-    clear: both;
-    font-weight: 400;
-    line-height: 50px;
-    margin: 10px 0;
-    font-size: 22px;
-    color: #1f2f3d;
-}
+    .schart-box {
+        display: inline-block;
+        margin: 20px;
+    }
+    .schart {
+        width: 600px;
+        height: 400px;
+    }
+    .content-title {
+        clear: both;
+        font-weight: 400;
+        line-height: 50px;
+        margin: 10px 0;
+        font-size: 22px;
+        color: #1f2f3d;
+    }
 </style>
