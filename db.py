@@ -304,11 +304,29 @@ class MysqlManager(object):
         print(data)
         return jsonData
 
-    #  修改系统管理员密码,number:14
-    def update_SysUser(self, id, password):
+    #  查询系统管理人员信息,number:16
+    def select_SysUser(self, uid):
+        self._connect_db()
+        sql = "SELECT * FROM sys_user WHERE id = %s""" % uid
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        # print(result)
+        self._close_db()
+        information = {}
+        for row in result:
+            data = {'email': row[7], 'username': row[3], 'phone': row[8], 'password': row[4]}
+            information = data
+        # print(information)
+        return information
+        # return result
+
+    #  修改系统管理员信息,number:14
+    def update_SysUser(self, id, password, phone, username):
         self._connect_db()
         # 构建sql语句
-        sql = "UPDATE sys_user SET Password = ('%s') WHERE id = ('%s') """ % (id, password)
+        sql = "UPDATE sys_user SET Password = ('%s'), phone = ('%s'), username = ('%s') WHERE id = ('%s') """ % (password, phone, username, id)
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()

@@ -275,11 +275,11 @@ def select_Employee():
     return res
 
 
-#  修改系统管理员密码,number:14
+#  修改系统管理员信息,number:14
 @app.route('/update_SysUser', methods=['GET'])
 def update_SysUser():
-    print("正在修改系统管理员密码")
-    dbManager.update_SysUser(request.args.get('id'), request.args.get('password'))
+    print("正在修改系统管理员信息")
+    dbManager.update_SysUser(request.args.get('id'), request.args.get('password'), request.args.get('phone'), request.args.get('nickname'))
     data = {
         'error': "0",  # 0请求成功 1请求失败
         'messages': "修改成功",
@@ -314,6 +314,25 @@ def login_SysUser():
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
     res.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
 
+    return res
+
+
+#  查询管理员信息,number:16
+@app.route('/select_SysUser', methods=['GET'])
+def select_SysUser():
+    print("正在查询管理员信息")
+    information = dbManager.select_SysUser(request.args.get('id'))
+    data = {
+        'error': "0",  # 0请求成功 1请求失败
+        'messages': "查询成功",
+        'data': information,
+    }
+    res = make_response(jsonify(data))  # 设置响应体
+    res.status = '200'  # 设置状态码
+    res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
+    res.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+
+    # print(data)
     return res
 
 
