@@ -1,9 +1,9 @@
 export default {
   projectType: 0,
-  baseURL: 'https://m.ctrip.com/',
+  baseURL: 'http://172.30.83.51:8080/',
   method: 'post',
 
-  userRegister:{url:'/user/register'},
-  test:{url:'restapi/soa2/13444/' +
-        'json/getCommentCollapseList?_fxpcqlniredt=09031091314687468312&x-traceID=09031091314687468312-1625708038659-6843409'}
+  userRegister:{url:'user/register'},
+  selectVolunteer:{url:'select_Volunteer'}
+
 }

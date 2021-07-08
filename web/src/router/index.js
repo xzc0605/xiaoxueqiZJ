@@ -35,8 +35,8 @@ export default new Router({
                     meta: { title: 'tab选项卡' }
                 },
                 {
-                    path: '/work',
-                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/volunteer.vue'),
+                    path: '/worker',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/worker.vue'),
                     meta: { title: 'tab选项卡' }
                 },
                 {

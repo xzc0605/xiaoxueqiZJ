@@ -73,15 +73,15 @@
     import axios from 'axios';
     import API from "../../api";
     export default {
-        name: 'tabs',
+        name: "worker",
         components:{addPeople},
         mounted() {
-        axios.get('http://172.30.83.51:8080/select_Volunteer',{params:{
+            axios.get('http://172.30.83.51:8080/select_Volunteer',{params:{
 
-            }}).then(res=>{
+                }}).then(res=>{
                 console.log(res)
-        })
-            },
+            })
+        },
         data() {
             return {
                 message: 'first',
@@ -171,7 +171,6 @@
             }
         }
     }
-
 </script>
 
 <style>
@@ -196,4 +195,3 @@
         width: 50%;
     }
 </style>
-
