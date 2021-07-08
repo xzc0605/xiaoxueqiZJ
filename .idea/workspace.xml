@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b155f97d-4d21-4254-a7bd-e68ee89fcae4" name="Default Changelist" comment="徐紫程提交 注册登录前端部分简单判断（还需调整）">
+    <list default="true" id="b155f97d-4d21-4254-a7bd-e68ee89fcae4" name="Default Changelist" comment="徐紫程提交111">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/components/common/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/components/common/Header.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/src/components/page/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/components/page/Login.vue" afterDir="false" />
@@ -43,6 +43,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettier.import.notification.dismissed" value="true" />
+    <property name="ts.external.directory.path" value="E:\WebStorm\WebStorm 2020.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -70,23 +71,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1625619271558</updated>
-      <workItem from="1625619275361" duration="9996000" />
+      <workItem from="1625619275361" duration="2781000" />
+      <workItem from="1625704455094" duration="6567000" />
     </task>
-    <task id="LOCAL-00001" summary="徐紫程提交 注册登录前端部分简单判断（还需调整）">
-      <created>1625622396544</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1625622396544</updated>
-    </task>
-    <task id="LOCAL-00002" summary="徐紫程提交 注册登录前端部分简单判断（还需调整）">
-      <created>1625622414462</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1625622414462</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,31 +89,24 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="徐紫程提交 注册登录前端部分简单判断（还需调整）" />
-    <option name="LAST_COMMIT_MESSAGE" value="徐紫程提交 注册登录前端部分简单判断（还需调整）" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="230" key="GridCell.Tab.0.bottom" timestamp="1625643527530">
+    <state width="1899" height="230" key="GridCell.Tab.0.bottom" timestamp="1625707483008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="230" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1625643527530" />
-    <state width="1899" height="230" key="GridCell.Tab.0.center" timestamp="1625643527530">
+    <state width="1899" height="230" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1625707483008" />
+    <state width="1899" height="230" key="GridCell.Tab.0.center" timestamp="1625707483008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="230" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1625643527530" />
-    <state width="1899" height="230" key="GridCell.Tab.0.left" timestamp="1625643527529">
+    <state width="1899" height="230" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1625707483008" />
+    <state width="1899" height="230" key="GridCell.Tab.0.left" timestamp="1625707483008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="230" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1625643527529" />
-    <state width="1899" height="230" key="GridCell.Tab.0.right" timestamp="1625643527530">
+    <state width="1899" height="230" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1625707483008" />
+    <state width="1899" height="230" key="GridCell.Tab.0.right" timestamp="1625707483008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="230" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1625643527530" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1625622650970">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1625622650970" />
+    <state width="1899" height="230" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1625707483008" />
   </component>
 </project>
