@@ -130,15 +130,16 @@ class MysqlManager(object):
 
         try:
             # 构建sql语句
-            sql ="Select gender," \
+            sql ="Select " \
+                 "Sum(1), " \
                  "Sum(Case When age <=50 Then 1 Else 0 End) As '[0-50]'," \
                  "Sum(Case When age Between 51 And 60 Then 1 Else 0 End) As '[51-60]'," \
                  "Sum(Case When age Between 61 And 70 Then 1 Else 0 End) As '[61-70]'," \
                  "Sum(Case When age Between 71 And 80 Then 1 Else 0 End) As '[71-80]'," \
                  "Sum(Case When age >=81 Then 1 Else 0 End) As '[80-90]' " \
                  "From" \
-                 "(SELECT *, ROUND(DATEDIFF(CURDATE(), birthday)/365.2422)  AS 'age' FROM oldperson_info) s " \
-                 "GROUP BY gender"
+                 "(SELECT *, ROUND(DATEDIFF(CURDATE(), birthday)/365.2422)  AS 'age' FROM oldperson_info) s "
+
 
             self.__cursor.execute(sql)
             self.__connect.commit()
@@ -147,9 +148,10 @@ class MysqlManager(object):
             return 0
         finally:
             result = self.__cursor.fetchall()
+            print(result)
             jsonData = []
             for row in result:
-                data = {'[0-50岁(人)]': row[1],'[50-60岁(人)]': row[2],'[60-70岁(人)]': row[3]}
+                data = {'[总人数(人)]': int(row[0]),'[0-50岁(人)]': int(row[1]),'[50-60岁(人)]': int(row[2]),'[60-70岁(人)]': int(row[3]),'[70-80岁(人)]': int(row[4]),'[80-90岁(人)]': int(row[5])}
                 jsonData.append(data)
             print(jsonData)
             return jsonData
