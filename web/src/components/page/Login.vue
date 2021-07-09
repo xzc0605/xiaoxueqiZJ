@@ -85,6 +85,10 @@
 <script>
 import axios from 'axios'
 export default {
+    name: 'login',
+    mounted() {
+        this.$router.push('/')
+    },
     data: function() {
         return {
           showL: true,
@@ -124,7 +128,7 @@ export default {
         };
     },
     methods: {
-        async Login() {
+        Login() {
             this.$refs.login.validate(async valid => {
                 if (!valid) {
 
