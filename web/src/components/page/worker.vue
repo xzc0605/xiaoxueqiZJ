@@ -53,11 +53,11 @@
         <el-dialog
                 :title="'添加人员'"
                 :visible.sync="addVisible"
-                width="500px"
+                width="1000px"
                 cente
                 :modal-append-to-body="false">
             <div>
-<!--                缺啥到时候补什么-->
+                <!--                缺啥到时候补什么-->
                 <addPeople></addPeople>
             </div>
             <span slot="footer" class="dialog-footer">
@@ -70,9 +70,18 @@
 
 <script>
     import addPeople from "../common/addPeople";
+    import axios from 'axios';
+    import API from "../../api";
     export default {
-        name: 'tabs',
+        name: "worker",
         components:{addPeople},
+        mounted() {
+            axios.get('http://172.30.83.51:8080/select_Volunteer',{params:{
+
+                }}).then(res=>{
+                console.log(res)
+            })
+        },
         data() {
             return {
                 message: 'first',
@@ -162,7 +171,6 @@
             }
         }
     }
-
 </script>
 
 <style>
@@ -173,12 +181,12 @@
         justify-content: flex-start;
         width: 100%;
     }
-.message-title{
-    cursor: pointer;
-}
-.handle-row{
-    margin-top: 30px;
-}
+    .message-title{
+        cursor: pointer;
+    }
+    .handle-row{
+        margin-top: 30px;
+    }
     .row-left {
         width: 6%;
     }
@@ -187,4 +195,3 @@
         width: 50%;
     }
 </style>
-

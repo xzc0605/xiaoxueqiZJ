@@ -18,6 +18,7 @@
 
 <script>
     import * as echarts from 'echarts'
+    import API from "../../api";
     export default {
         name: 'dashboard',
         data() {
@@ -130,8 +131,18 @@
             }
         },
         mounted() {
+            // // 测试
+            // let data={"arg":{"channelType":2,"collapseType":0,
+            //         "commentTagId":0,"pageIndex":2,"pageSize":10,
+            //         "poiId":10758959,"sourceType":1,"sortType":3,
+            //         "starType":0},"head":{"cid":"09031091314687468312"
+            //         ,"ctok":"","cver":"1.0","lang":"01","sid":"8888",
+            //         "syscode":"09","auth":"","xsid":"","extension":[]}}
+            // API.test(data).then(res=>{
+            //     console.log(res)
+            // })
             this.drawBarchart()
-            this.drawPieChart()()
+            this.drawPieChart()
         },
         methods: {
             drawPieChart(){

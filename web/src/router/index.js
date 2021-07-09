@@ -30,8 +30,13 @@ export default new Router({
                     meta: { title: '基础表格' }
                 },
                 {
-                    path: '/tabs',
-                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
+                    path: '/volunteer',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/volunteer.vue'),
+                    meta: { title: 'tab选项卡' }
+                },
+                {
+                    path: '/worker',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/worker.vue'),
                     meta: { title: 'tab选项卡' }
                 },
                 {
@@ -98,8 +103,8 @@ export default new Router({
                     meta: { title: '403' }
                 },
                 {
-                    path: '/donate',
-                    component: () => import(/* webpackChunkName: "donate" */ '../components/page/Donate.vue'),
+                    path: '/addpeople',
+                    component: () => import('../components/common/addPeople'),
                     meta: { title: '支持作者' }
                 }
             ]

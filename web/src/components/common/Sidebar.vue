@@ -116,7 +116,7 @@ export default {
                         },
                         {
                             icon: 'el-icon-lx-copy',
-                            index: 'tabs',
+                            index: 'volunteer',
                             title: '义工信息管理'
                         },
                     ],
@@ -143,8 +143,8 @@ export default {
                             title: '权限测试'
                         },
                         {
-                            index: '404',
-                            title: '404页面'
+                            index: 'addpeople',
+                            title: '添加人员'
                         }
                     ]
                 },
