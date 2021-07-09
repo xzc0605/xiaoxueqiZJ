@@ -76,7 +76,7 @@
         name: 'tabs',
         components:{addPeople},
         mounted() {
-        axios.get('http://172.30.83.51:8080/select_Volunteer',{params:{
+        axios.get(axios.defaults.baseURL+'select_Volunteer',{params:{
 
             }}).then(res=>{
                 console.log(res)

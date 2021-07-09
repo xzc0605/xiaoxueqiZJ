@@ -347,5 +347,37 @@
 </script>
 
 <style scoped>
+    .display-row {
+        display: -webkit-flex; /* Safari */
+        -webkit-justify-content: flex-start; /* Safari 6.1+ */
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
 
+    .row-left {
+        width: 6%;
+    }
+
+    .row-right{
+        width: 50%;
+    }
+
+    .titleClass {
+        color: gray;
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+    .row-margin {
+        margin-top: 20px;
+    }
+
+    .text {
+        font-weight: bold;
+    }
 </style>
