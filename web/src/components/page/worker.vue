@@ -136,6 +136,8 @@
             },
             updateNewWorker(){
                 let data=this.$refs.addPeople.workform
+                // insert_Employee
+                // update_Employee
                 axios.get(axios.defaults.baseURL+'insert_Employee',{params:
                         data
                     }).then(res=>{
@@ -151,8 +153,6 @@
             },
             handleEdit(index, row) {
                 this.addVisible=true;
-                this.tableIndex=index;
-                this.tableRow=row;
                 this.handleEditDialog()
 
             },

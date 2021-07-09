@@ -16,10 +16,13 @@
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-                <el-table-column prop="name" label="用户名"></el-table-column>
-                <el-table-column prop="address" label="地址"></el-table-column>
-                <el-table-column prop="email" label="邮箱"></el-table-column>
+                <el-table-column prop="username" label="用户名"></el-table-column>
+                <el-table-column prop="gender" label="性别"></el-table-column>
+                <el-table-column prop="id_card" label="身份证"></el-table-column>
                 <el-table-column prop="phone" label="联系方式"></el-table-column>
+                <el-table-column prop="birthday" label="出生日期"></el-table-column>
+                <el-table-column prop="checkin_date" label="登入日期"></el-table-column>
+                <el-table-column prop="checkout_date" label="登出日期"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -53,15 +56,15 @@
         <el-dialog
                 :title="'添加人员'"
                 :visible.sync="addVisible"
-                width="1000px"
+                width="500px"
                 cente
                 :modal-append-to-body="false">
             <div>
                 <!--                缺啥到时候补什么-->
-                <addPeople></addPeople>
+                <addPeople :people-type="1" ref="addPeople"></addPeople>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="updateNecessaryStudent()" type="primary">确 定</el-button>
+                <el-button @click="updateNewVolunteer()" type="primary">确 定</el-button>
                 <el-button @click="addVisible = false">取 消</el-button>
               </span>
         </el-dialog>
@@ -75,13 +78,6 @@
     export default {
         name: 'tabs',
         components:{addPeople},
-        mounted() {
-        axios.get(axios.defaults.baseURL+'select_Volunteer',{params:{
-
-            }}).then(res=>{
-                console.log(res)
-        })
-            },
         data() {
             return {
                 message: 'first',
@@ -103,67 +99,42 @@
                     date: '2018-04-19 20:00:00',
                     title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
                 }],
-                tableData: [{
-                    "id": 1,
-                    "name": "张三",
-                    "money": 123,
-                    "address": "广东省东莞市长安镇",
-                    "state": "成功",
-                    "date": "2019-11-1",
-                    unit:'101',
-                    phone:1111111,
-                    email:'111@163.com',
-                },
-                    {
-                        "id": 2,
-                        "name": "李四",
-                        "money": 456,
-                        "address": "广东省广州市白云区",
-                        "state": "成功",
-                        "date": "2019-10-11",
-                        unit:'101',
-                        phone:1111111,
-                        email:'111@163.com',
-                    },
-                    {
-                        "id": 3,
-                        "name": "王五",
-                        "money": 789,
-                        "address": "湖南省长沙市",
-                        "state": "失败",
-                        "date": "2019-11-11",
-                        unit:'101',
-                        phone:1111111,
-                        email:'111@163.com',
-                    },
-                    {
-                        "id": 4,
-                        "name": "赵六",
-                        "money": 1011,
-                        "address": "福建省厦门市鼓浪屿",
-                        "state": "成功",
-                        "date": "2019-10-20",
-                        unit:'101',
-                        phone:1111111,
-                        email:'111@163.com',
-                    }
+                tableData: [
                 ],
             }
         },
+        mounted() {
+         this.getTableData()
+        },
         methods: {
-            handleRead(index) {
-                const item = this.unread.splice(index, 1);
-                console.log(item);
-                this.read = item.concat(this.read);
+            getTableData(){
+                axios.get('http://172.30.83.51:8080/select_Volunteer',{params:{
+
+                    }}).then(res=>{
+                    // if(res.data.error=='1'){
+                    //     this.$message.error(res.data.messages)
+                    //     return
+                    // }
+                    this.tableData=res.data.data
+                })
             },
-            handleDel(index) {
-                const item = this.read.splice(index, 1);
-                this.recycle = item.concat(this.recycle);
+            updateNewVolunteer(){
+                let data=this.$refs.addPeople.workform
+                // insert_Employee
+                // update_Employee
+                axios.get(axios.defaults.baseURL+'insert_Volunteer',{params:
+                    data
+                }).then(res=>{
+                    if(res.data.error!=0){
+                        this.$message.error(res.data.messages)
+                        this.addVisible=false
+                        return
+                    }
+                    this.addVisible=false
+                    this.$message.success('操作成功')
+                    this.getTableData()
+                })
             },
-            handleRestore(index) {
-                const item = this.recycle.splice(index, 1);
-                this.read = item.concat(this.read);
-            }
         },
         computed: {
             unreadNum(){
