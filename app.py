@@ -46,7 +46,7 @@ dbManager = db.MysqlManager("old_care", 'yyn', '13141516')
 def insert_OldPerson():
     print("正在插入老人信息")
     OldPerson = dbManager.insert_OldPerson(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
-                               request.args.get('id_card'))
+                                           request.args.get('id_card'))
     if OldPerson == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
@@ -70,7 +70,7 @@ def insert_OldPerson():
 def insert_Volunteer():
     print("正在插入义工信息")
     Volunteer = dbManager.insert_Volunteer(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
-                               request.args.get('id_card'))
+                                           request.args.get('id_card'))
     if Volunteer == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
@@ -94,7 +94,7 @@ def insert_Volunteer():
 def insert_Employee():
     print("正在插入工作人员信息")
     Employee = dbManager.insert_Employee(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
-                              request.args.get('id_card'))
+                                         request.args.get('id_card'))
     if Employee == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
@@ -177,11 +177,17 @@ def update_Volunteer():
 @app.route('/update_Employee', methods=['GET'])
 def update_Employee():
     print("正在修改工作人员信息")
-    dbManager.update_Employee(request.args.get('id'), request.args.get('update'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "修改成功",
-    }
+    Employee = dbManager.update_Employee(request.args.get('id'), request.args.get('update'))
+    if Employee == "1":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "修改成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "修改失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域

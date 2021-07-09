@@ -73,7 +73,6 @@ class MysqlManager(object):
         if style == '2':
             sql = "UPDATE %s SET created= ('%s'), createby=('18301113') WHERE id = ('%s') """ % (cell, now_time, id)
         # 构建sql语句
-        print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
         print("语句执行完毕")
@@ -111,12 +110,6 @@ class MysqlManager(object):
             print("正在执行语句：" + sql)
             self.__cursor.execute(sql)
             self.__connect.commit()
-            # #  创建时间和最后更新时间
-            # sql = "INSERT INTO volunteer_info (created, ) VALUES ('%s', '%s', '%s', '%s')""" % (
-            #     username, gender, phone, id_card)
-            print("正在执行语句：" + sql)
-            self.__cursor.execute(sql)
-            self.__connect.commit()
             print("语句执行完毕")
             print("插入义工信息成功\n")
             return "0"
@@ -131,42 +124,32 @@ class MysqlManager(object):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
-        try:
-            # 构建sql语句
-            sql = "INSERT INTO employee_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-                username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
-            print("正在执行语句：" + sql)
-            self.__cursor.execute(sql)
-            self.__connect.commit()
-            print("语句执行完毕")
-            print("插入工作人员信息成功\n")
-            return "0"
-        except Exception:
-            print("插入工作人员信息失败\n")
-            return "1"
-        finally:
-            self._close_db()
+        # 构建sql语句
+        sql = "INSERT INTO employee_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        self.__connect.commit()
+        print("语句执行完毕")
+        print("插入工作人员信息成功\n")
+        self._close_db()
+        return "0"
 
     #  插入系统管理员信息,number:4
     def insert_SysUser(self, email, password, sex, nickname, phone):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
-        try:
-            # 构建sql语句
-            sql = "INSERT INTO sys_user (email,password,sex,username,phone,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
-                email, password, sex, nickname, phone, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
-            print("正在执行语句：" + sql)
-            self.__cursor.execute(sql)
-            self.__connect.commit()
-            print("语句执行完毕")
-            print("插入管理员信息成功\n")
-            return "0"
-        except Exception:
-            print("插入管理员信息失败\n")
-            return "1"
-        finally:
-            self._close_db()
+        # 构建sql语句
+        sql = "INSERT INTO sys_user (email,password,sex,username,phone,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            email, password, sex, nickname, phone, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        self.__connect.commit()
+        print("语句执行完毕")
+        print("插入管理员信息成功\n")
+        self._close_db()
+        return "0"
 
     #  修改老人信息,number:5
     def update_OldPerson(self, id, data):
@@ -272,7 +255,7 @@ class MysqlManager(object):
                         'secondguardian_name': row[17], 'secondguardian_relationship': row[18],
                         'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
                 jsonData.append(data)
-                print("老人信息查询成功\n")
+            print("老人信息查询成功\n")
             return jsonData
         else:
             print("老人信息查询失败\n")
@@ -294,7 +277,7 @@ class MysqlManager(object):
                         'birthday': row[7], 'checkin_date': row[8], 'checkout_date': row[9], 'imgset_dir': row[10],
                         'profile_photo': row[11]}
                 jsonData.append(data)
-                print("义工信息查询成功\n")
+            print("义工信息查询成功\n")
             return jsonData
         else:
             print("义工信息查询失败\n")
@@ -316,8 +299,8 @@ class MysqlManager(object):
                         'birthday': row[7], 'hire_date': row[8], 'resign_date': row[9], 'imgset_dir': row[10],
                         'profile_photo': row[11]}
                 jsonData.append(data)
-                print("工作人员信息查询成功\n")
-                print(jsonData)
+            print("工作人员信息查询成功\n")
+            print(jsonData)
             return jsonData
         else:
             print("工作人员信息查询失败\n")
