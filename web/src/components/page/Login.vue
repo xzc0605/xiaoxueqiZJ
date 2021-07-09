@@ -141,7 +141,7 @@ export default {
                       this.$message.success('登录成功');
                        Cookies.set('userid',res.data.id)
                        this.$router.push('/');
-                       alert(res.data.id)
+
                    }else{
                      this.$message.error(res.data.messages)
                    }

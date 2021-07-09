@@ -59,7 +59,7 @@
                   <el-input v-model="tableData.phone"></el-input>
                 </el-form-item>
                 <el-form-item label="密码">
-                  <el-input v-model="tableData.password"></el-input>
+                  <el-input v-model="tableData.password" show-password></el-input>
                 </el-form-item>
         </el-form>
 
