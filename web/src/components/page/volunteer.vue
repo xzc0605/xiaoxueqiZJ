@@ -68,6 +68,17 @@
                 <el-button @click="addVisible = false">取 消</el-button>
               </span>
         </el-dialog>
+        <el-dialog
+                :title="'确定要删除'"
+                :visible.sync="deleteVisible"
+                width="500px"
+                cente
+                :modal-append-to-body="false">
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="deleteNewWorker" type="primary">确 定</el-button>
+                <el-button @click="deleteVisible = false">取 消</el-button>
+              </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -80,6 +91,7 @@
         components:{addPeople},
         data() {
             return {
+                deleteVisible:false,
                 message: 'first',
                 showHeader: false,
                 listForm1:{},
@@ -119,7 +131,7 @@
                 })
             },
             updateNewVolunteer(){
-                let data=this.$refs.addPeople.workform
+                let data=this.$refs.addPeople.VolunteerForm
                 // insert_Employee
                 // update_Employee
                 axios.get(axios.defaults.baseURL+'insert_Volunteer',{params:
@@ -135,6 +147,25 @@
                     this.getTableData()
                 })
             },
+            handleDelete(index, row) {
+                this.id=this.tableData[index].id
+                this.deleteVisible=true
+            },
+            deleteNewWorker(){
+                let data={id:this.id}
+                axios.get(axios.defaults.baseURL+'delete_Volunteer',{params:
+                    data
+                }).then(res=>{
+                    if(res.data.error!=0){
+                        this.$message.error(res.data.messages)
+                        this.deleteVisible=false
+                        return
+                    }
+                    this.deleteVisible=false
+                    this.$message.success('操作成功')
+                    this.getTableData()
+                })
+            }
         },
         computed: {
             unreadNum(){

@@ -72,7 +72,7 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="姓名" v-model="VolunteerForm.name"
+                    <el-input  placeholder="姓名" v-model="VolunteerForm.username"
                                autosize ></el-input>
                 </div>
             </div>
@@ -322,7 +322,7 @@
                 },
                 VolunteerForm:{
                     id:'',
-                    name:'',
+                    username:'',
                     gender:'',
                     phone:'',
                     id_card:'',
