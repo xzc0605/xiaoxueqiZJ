@@ -2,8 +2,8 @@
     <div>
 <!--        占位-->
 <!--        <el-image></el-image>-->
-        <video ref="video" style="width: 100%;height: 200px" autoplay></video>
-        <div v-if="false">
+<!--        <video ref="video" style="width: 100%;height: 200px" autoplay></video>-->
+        <div v-if="peopleType==0">
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
                 <div class="titleinput row-right">
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div >
+        <div v-if="peopleType==1">
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
                 <div class="titleinput row-right">
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="false" style="display: flex">
+        <div v-if="peopleType==2" style="display: flex">
         <div style="width: 50%;margin-right: 20px">
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
@@ -278,9 +278,16 @@
 <script>
     export default {
         name: "addPeople",
+        props:{
+            peopleType:{
+                type:Number,//0工作人员 ,1志愿者,2老人
+                default:4,
+            }
+        },
         data(){
             return{
                 olderform:{
+                    id:'',
                     username:'',
                     gender:'',
                     phone:'',
@@ -302,6 +309,7 @@
                     health_state:'',
                 },
                 workform:{
+                    id:'',
                     username:'',
                     gender:'',
                     phone:'',
@@ -313,6 +321,7 @@
                     profile_photo:'',
                 },
                 VolunteerForm:{
+                    id:'',
                     name:'',
                     gender:'',
                     phone:'',

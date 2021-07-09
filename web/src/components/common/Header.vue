@@ -108,9 +108,9 @@ export default {
             }
         };
     },
- created() {
-      this.init()
- },
+ // created() {
+ //      this.init()
+ // },
 
   methods: {
     init(){
