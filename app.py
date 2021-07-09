@@ -45,12 +45,18 @@ dbManager = db.MysqlManager("old_care", 'yyn', '13141516')
 @app.route('/insert_OldPerson', methods=['GET', 'POST'])
 def insert_OldPerson():
     print("正在插入老人信息")
-    dbManager.insert_OldPerson(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
+    OldPerson = dbManager.insert_OldPerson(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
                                request.args.get('id_card'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "插入成功",
-    }
+    if OldPerson == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "插入老人信息成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "插入老人信息失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -63,12 +69,18 @@ def insert_OldPerson():
 @app.route('/insert_Volunteer', methods=['GET'])
 def insert_Volunteer():
     print("正在插入义工信息")
-    dbManager.insert_Volunteer(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
+    Volunteer = dbManager.insert_Volunteer(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
                                request.args.get('id_card'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "插入成功",
-    }
+    if Volunteer == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "插入义工信息成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "插入义工信息失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -81,12 +93,18 @@ def insert_Volunteer():
 @app.route('/insert_Employee', methods=['GET'])
 def insert_Employee():
     print("正在插入工作人员信息")
-    dbManager.insert_Employee(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
-                               request.args.get('id_card'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "插入成功",
-    }
+    Employee = dbManager.insert_Employee(request.args.get('username'), request.args.get('gender'), request.args.get('phone'),
+                              request.args.get('id_card'))
+    if Employee == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "插入工作人员信息成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "插入工作人员信息失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -99,13 +117,18 @@ def insert_Employee():
 @app.route('/insert_SysUser', methods=['GET'])
 def insert_SysUser():
     print("正在注册管理员信息")
-    dbManager.insert_SysUser(request.args.get('email'), request.args.get('password'), request.args.get('sex'),
-                             request.args.get('nickname'), request.args.get('phone'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "注册成功",
-        'id': "10086",
-    }
+    SysUser = dbManager.insert_SysUser(request.args.get('email'), request.args.get('password'), request.args.get('sex'),
+                                       request.args.get('nickname'), request.args.get('phone'))
+    if SysUser == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "注册成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "注册失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -171,11 +194,17 @@ def update_Employee():
 @app.route('/delete_OldPerson', methods=['GET'])
 def delete_OldPerson():
     print("正在删除老人信息")
-    dbManager.delete_OldPerson(request.args.get('id'))
-    data = {
-        'error': "1",  # 0请求成功 1请求失败
-        'messages': "删除成功"
-    }
+    OldPerson = dbManager.delete_OldPerson(request.args.get('id'))
+    if OldPerson == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "删除老人信息成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "删除老人信息失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -188,11 +217,17 @@ def delete_OldPerson():
 @app.route('/delete_Volunteer', methods=['GET'])
 def delete_Volunteer():
     print("正在删除义工信息")
-    dbManager.delete_Volunteer(request.args.get('id'))
-    data = {
-        'error': "1",  # 0请求成功 1请求失败
-        'messages': "删除成功"
-    }
+    Volunteer = dbManager.delete_Volunteer(request.args.get('id'))
+    if Volunteer == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "删除义工信息成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "删除义工信息失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -205,11 +240,17 @@ def delete_Volunteer():
 @app.route('/delete_Employee', methods=['GET'])
 def delete_Employee():
     print("正在删除工作人员信息")
-    dbManager.delete_Employee(request.args.get('id'))
-    data = {
-        'error': "1",  # 0请求成功 1请求失败
-        'messages': "删除成功"
-    }
+    Employee = dbManager.delete_Employee(request.args.get('id'))
+    if Employee == "0":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "删除工作人员信息成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "删除工作人员信息失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -224,11 +265,17 @@ def select_OldPerson():
     #  获取所有老人信息并输出
     print("正在获取老人信息")
     OldPerson = dbManager.select_OldPerson()
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'id': "10086",
-        'data': OldPerson
-    }
+    if OldPerson == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "老人信息获取失败",
+        }
+    else:
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'data': OldPerson,
+            'messages': "老人信息获取成功",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -243,11 +290,17 @@ def select_Volunteer():
     #  获取所有义工信息并输出
     print("正在获取义工信息")
     Volunteer = dbManager.select_Volunteer()
-    data = {
-        'error': "1",  # 0请求成功 1请求失败
-        'id': "10086",
-        'data': Volunteer
-    }
+    if Volunteer == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "义工信息获取失败",
+        }
+    else:
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'data': Volunteer,
+            'messages': "义工信息获取成功",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -262,11 +315,17 @@ def select_Employee():
     #  获取所有工作人员信息并输出
     print("正在获取工作人员信息")
     Employee = dbManager.select_Employee()
-    data = {
-        'error': "1",  # 0请求成功 1请求失败
-        'id': "10086",
-        'data': Employee
-    }
+    if Employee == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "工作人员信息获取失败",
+        }
+    else:
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'data': Employee,
+            'messages': "工作人员信息获取成功",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -279,11 +338,17 @@ def select_Employee():
 @app.route('/update_SysUser', methods=['GET'])
 def update_SysUser():
     print("正在修改系统管理员信息")
-    dbManager.update_SysUser(request.args.get('id'), request.args.get('password'), request.args.get('phone'), request.args.get('nickname'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "修改成功",
-    }
+    SysUser = dbManager.update_SysUser(request.args.get('id'), request.args.get('password'), request.args.get('phone'), request.args.get('nickname'))
+    if SysUser == "1":
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'messages': "修改成功",
+        }
+    else:
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "修改失败",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -297,7 +362,7 @@ def update_SysUser():
 def login_SysUser():
     print("正在验证用户登录")
     num = dbManager.get_sys_user(request.args.get('email'), request.args.get('password'))
-    if num == "0":
+    if num == "1":
         data = {
             'error': "1",  # 0请求成功 1请求失败
             'messages': "邮箱不存在或密码不正确",
@@ -308,7 +373,6 @@ def login_SysUser():
             'messages': "登录成功",
             'id': num,
         }
-
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
@@ -322,24 +386,23 @@ def login_SysUser():
 def select_SysUser():
     print("正在查询管理员信息")
     information = dbManager.select_SysUser(request.args.get('id'))
-    data = {
-        'error': "0",  # 0请求成功 1请求失败
-        'messages': "查询成功",
-        'data': information,
-    }
+    if information == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "管理员信息获取失败",
+        }
+    else:
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'data': information,
+            'messages': "管理员信息获取成功",
+        }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
     res.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
 
-    # print(data)
     return res
-
-
-#  网页test
-@app.route('/test.html', methods=['GET'])
-def test():
-    return render_template("test.html")
 
 
 if __name__ == '__main__':
