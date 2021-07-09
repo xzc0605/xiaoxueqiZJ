@@ -143,8 +143,8 @@ export default {
                             title: '权限测试'
                         },
                         {
-                            index: '404',
-                            title: '404页面'
+                            index: 'addpeople',
+                            title: '添加人员'
                         }
                     ]
                 },
