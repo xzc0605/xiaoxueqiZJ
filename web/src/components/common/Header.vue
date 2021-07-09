@@ -120,7 +120,7 @@ export default {
         params: this.form
       }).then((res) => {
         if (res.data.error === '0') {
-          this.tableData.nickname=res.data.data.username,
+              this.tableData.nickname=res.data.data.username,
               this.tableData.email=res.data.data.email,
               this.tableData.phone=res.data.data.phone,
               this.tableData.password=res.data.data.password

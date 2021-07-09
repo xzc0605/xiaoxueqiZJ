@@ -21,7 +21,7 @@
                 </el-select>
                 <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-                <el-button style="float: right" type="primary" icon="el-icon-plus" @click="addOld()">添加老人</el-button>
+               <!-- <el-button style="float: right" type="primary" icon="el-icon-plus" @click="addOld()">添加老人</el-button>-->
             </div>
             <el-table
                 :data="tableData"
@@ -154,9 +154,7 @@ export default {
         // this.getData();
     },
     methods: {
-      addOld(){
-        alert()
-      },
+
         // 获取 easy-mock 的模拟数据
         // getData() {
         //     fetchData(this.query).then(res => {

@@ -140,7 +140,7 @@ export default {
                    if (res.data.error === '0') {
                       this.$message.success('登录成功');
                        Cookies.set('userid',res.data.id)
-                       this.$router.push('/');
+                       this.$router.push('/dashboard');
 
                    }else{
                      this.$message.error(res.data.messages)
@@ -150,7 +150,7 @@ export default {
             });
         },
 /*      Login(){
-        this.$router.push('/');
+        this.$router.push('/dashboard');
       },*/
       async Register(){
         if (this.form.email.length === 0) {
@@ -188,10 +188,7 @@ export default {
         }).then((res) => {
 
           if (res.data.error === '0') {
-              this.$message.success("接收到了信息")
-              /*  alert(res.data.id)
-              alert(res.data.messages)
-              console.log(res)*/
+              this.$message.success("注册成功")
               this.toLogin();
           } else {
             this.$message.error("未接收到信息")
