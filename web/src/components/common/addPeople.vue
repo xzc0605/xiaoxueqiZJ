@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="false">
+        <div >
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
                 <div class="titleinput row-right">
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div style="display: flex">
+        <div v-if="false" style="display: flex">
         <div style="width: 50%;margin-right: 20px">
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
