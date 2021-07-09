@@ -111,7 +111,7 @@ export default {
                     subs: [
                         {
                             icon: 'el-icon-lx-cascades',
-                            index: 'tabs',
+                            index: 'worker',
                             title: '工作人员信息管理'
                         },
                         {
