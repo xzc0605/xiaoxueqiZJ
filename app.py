@@ -52,6 +52,11 @@ def insert_OldPerson():
             'error': "0",  # 0请求成功 1请求失败
             'messages': "插入老人信息成功",
         }
+    elif OldPerson == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "身份信息已存在",
+        }
     else:
         data = {
             'error': "1",  # 0请求成功 1请求失败
@@ -75,6 +80,11 @@ def insert_Volunteer():
         data = {
             'error': "0",  # 0请求成功 1请求失败
             'messages': "插入义工信息成功",
+        }
+    elif Volunteer == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "身份信息已存在",
         }
     else:
         data = {
@@ -100,6 +110,11 @@ def insert_Employee():
             'error': "0",  # 0请求成功 1请求失败
             'messages': "插入工作人员信息成功",
         }
+    elif Employee == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "身份信息已存在",
+        }
     else:
         data = {
             'error': "1",  # 0请求成功 1请求失败
@@ -119,10 +134,16 @@ def insert_SysUser():
     print("正在注册管理员信息")
     SysUser = dbManager.insert_SysUser(request.args.get('email'), request.args.get('password'), request.args.get('sex'),
                                        request.args.get('nickname'), request.args.get('phone'))
+    # SysUser = dbManager.insert_SysUser("18301113@qq.com", "123456", "男", "Inzarote", "18301113")
     if SysUser == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
             'messages': "注册成功",
+        }
+    elif SysUser == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "邮箱已存在",
         }
     else:
         data = {
@@ -145,8 +166,6 @@ def update_OldPerson():
     data = {
         'error': "0",  # 0请求成功 1请求失败
         'messages': "修改成功",
-        # 'id': "22"
-        # 'update': {'username': "123", 'phone': "18562052031"}
     }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
@@ -178,7 +197,12 @@ def update_Volunteer():
 def update_Employee():
     print("正在修改工作人员信息")
     Employee = dbManager.update_Employee(request.args.get('id'), request.args.get('update'))
-    if Employee == "1":
+    # update = {
+    #         'phone': "0",  # 0请求成功 1请求失败
+    #         'gender': "修改成功",
+    #     }
+    # Employee = dbManager.update_Employee("60", update)
+    if Employee == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
             'messages': "修改成功",
@@ -345,7 +369,7 @@ def select_Employee():
 def update_SysUser():
     print("正在修改系统管理员信息")
     SysUser = dbManager.update_SysUser(request.args.get('id'), request.args.get('password'), request.args.get('phone'), request.args.get('nickname'))
-    if SysUser == "1":
+    if SysUser == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
             'messages': "修改成功",

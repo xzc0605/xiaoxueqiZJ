@@ -84,46 +84,73 @@ class MysqlManager(object):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
-        try:
-            # 构建sql语句
-            sql = "INSERT INTO oldperson_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-                username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
-            print("正在执行语句：" + sql)
-            self.__cursor.execute(sql)
-            self.__connect.commit()
-            print("语句执行完毕")
-            return "0"
-        except Exception:
-            return "1"
-        finally:
-            self._close_db()
+
+        # 验证身份信息是否存在
+        sql = "SELECT id_card FROM oldperson_info"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        id_card_result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        for i in id_card_result:
+            if i[0] == id_card:
+                print("身份信息已存在\n")
+                self._close_db()
+                return "1"
+        # 构建sql语句
+        sql = "INSERT INTO oldperson_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        self.__connect.commit()
+        print("语句执行完毕")
+        self._close_db()
+        return "0"
 
     #  插入义工信息,number:2
     def insert_Volunteer(self, username, gender, phone, id_card):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
-        try:
-            # 构建sql语句
-            sql = "INSERT INTO volunteer_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-                username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
-            print("正在执行语句：" + sql)
-            self.__cursor.execute(sql)
-            self.__connect.commit()
-            print("语句执行完毕")
-            print("插入义工信息成功\n")
-            return "0"
-        except Exception:
-            print("插入义工信息失败\n")
-            return "1"
-        finally:
-            self._close_db()
+
+        # 验证身份信息是否存在
+        sql = "SELECT id_card FROM volunteer_info"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        id_card_result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        for i in id_card_result:
+            if i[0] == id_card:
+                print("身份信息已存在\n")
+                self._close_db()
+                return "1"
+        # 构建sql语句
+        sql = "INSERT INTO volunteer_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        self.__connect.commit()
+        self._close_db()
+        print("语句执行完毕")
+        print("插入义工信息成功\n")
+        return "0"
 
     #  插入工作人员信息,number:3
     def insert_Employee(self, username, gender, phone, id_card):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
+
+        # 验证身份信息是否存在
+        sql = "SELECT id_card FROM employee_info"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        id_card_result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        for i in id_card_result:
+            if i[0] == id_card:
+                print("身份信息已存在\n")
+                self._close_db()
+                return "1"
         # 构建sql语句
         sql = "INSERT INTO employee_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
             username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
@@ -140,6 +167,21 @@ class MysqlManager(object):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
+
+        # 验证邮箱是否存在
+        sql = "SELECT email FROM sys_user"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        email_result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        # print(email_result)
+        for i in email_result:
+            # print(i)
+            if i[0] == email:
+                print("邮箱已存在\n")
+                self._close_db()
+                return "1"
+
         # 构建sql语句
         sql = "INSERT INTO sys_user (email,password,sex,username,phone,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
             email, password, sex, nickname, phone, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
@@ -192,6 +234,7 @@ class MysqlManager(object):
         self._close_db()
         #  自动存储时间
         self.save_time("1", "employee_info", id)
+        return "0"
 
     #  删除老人信息,number:8
     def delete_OldPerson(self, id):
@@ -311,7 +354,7 @@ class MysqlManager(object):
         self._connect_db()
         # 构建sql语句
         sql = "UPDATE sys_user SET Password = ('%s'), phone = ('%s'), username = ('%s') WHERE id = ('%s') """ % (
-        password, phone, username, id)
+            password, phone, username, id)
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
@@ -320,7 +363,7 @@ class MysqlManager(object):
         #  自动存储时间
         self.save_time("1", "sys_user", id)
         print("修改管理员信息成功\n")
-        return "1"
+        return "0"
 
     # ------------------------------------------------------------------------------------------------------
     # 管理员登录注册
@@ -381,7 +424,7 @@ class MysqlManager(object):
 
         result = self.__cursor.fetchall()
         self._close_db()
-        if (len(result)) == 1:
+        if result:
             for row in result:
                 num = row[0]
                 print("管理员登录验证成功\n")
@@ -402,7 +445,7 @@ class MysqlManager(object):
         information = {}
         if result:
             for row in result:
-                data = {'email': row[7], 'username': row[3], 'phone': row[8], 'password': row[4]}
+                data = {'email': row[7], 'username': row[3], 'phone': row[8], 'password': row[4], 'gender': row[6]}
                 information = data
                 print("管理员信息查询成功\n")
             return information
