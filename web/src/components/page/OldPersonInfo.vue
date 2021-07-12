@@ -21,7 +21,7 @@
                 </el-select>-->
                 <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-               <!-- <el-button style="float: right" type="primary" icon="el-icon-plus" @click="addOld()">添加老人</el-button>-->
+                <el-button style="float: right" type="primary" icon="el-icon-plus" @click="addOld()">添加老人</el-button>
             </div>
           <el-table
               :data="tableData"
@@ -37,9 +37,7 @@
             <el-table-column prop="gender" label="性别" align="center"></el-table-column>
 
             <el-table-column prop="birthday" label="出生日期" align="center"></el-table-column>
-            <!-- <el-table-column label="工作地点">
-                 <template slot-scope="scope">￥{{scope.row.money}}</template>
-             </el-table-column>-->
+
             <el-table-column prop="id_card" label="身份证号" align="center"></el-table-column>
             <el-table-column prop="phone" label="电话号" align="center"></el-table-column>
             <!--<el-table-column prop="room_number" label="房间号" align="center"></el-table-column>-->
@@ -49,7 +47,7 @@
                 <el-button
                     type="text"
                     icon="el-icon-edit"
-                    @click="handleEdit(scope.$index, scope.row)"
+                    @click="handleEdit(scope.row)"
                 >编辑</el-button>
                 <el-button
                     type="text"
@@ -74,10 +72,168 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="修改老人信息" :visible.sync="editVisible" width="1000px">
-          <addPeople :people-type="2" ref="addPeople"></addPeople>
+         <!--老人信息添加修改框-->
+          <div style="display: flex">
+            <div style="width: 50%;margin-right: 20px">
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>姓名 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="姓名" v-model="olderform.username"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>性别 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-select placeholder="性别" v-model="olderform.gender" style="width: 100%">
+                    <el-option name="男" value="男"></el-option>
+                    <el-option name="女" value="女"></el-option>
+                  </el-select>
+                </div>
+
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>电话 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="电话" v-model="olderform.phone"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>身份证号码 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="身份证号码" v-model="olderform.id_card"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>出生日期 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-date-picker
+                      style="width: 100%"
+                      value-format="yyyy-MM-dd"
+                      placeholder="出生日期"
+                      v-model="olderform.birthday"></el-date-picker>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>	入养老院日期 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-date-picker
+                      style="width: 100%"
+                      value-format="yyyy-MM-dd"
+                      placeholder="出生入养老院日期"
+                      v-model="olderform.checkin_date"></el-date-picker>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>离开养老院日期 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-date-picker
+                      style="width: 100%"
+                      value-format="yyyy-MM-dd"
+                      placeholder="离开养老院日期"
+                      v-model="olderform.checkout_date"></el-date-picker>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>图像目录 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="图像目录" v-model="olderform.imgset_dir"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>头像：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="头像" v-model="olderform.profile_photo"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 20%;text-align: right"><p>健康状况：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="健康状况" v-model="olderform.health_state"
+                             autosize ></el-input>
+                </div>
+              </div>
+            </div>
+            <div style="width: 50%">
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>房间号 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="房间号" v-model="olderform.room_number"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>第一监护人姓名 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="第一监护人姓名" v-model="olderform.firstguardian_name"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>与第一监护人关系 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="与第一监护人关系" v-model="olderform.firstguardian_relationship"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>第一监护人电话 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="第一监护人电话" v-model="olderform.firstguardian_phone"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>第一监护人微信 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="第一监护人微信" v-model="olderform.firstguardian_wechat"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>	第二监护人姓名 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="第二监护人姓名" v-model="olderform.secondguardian_name"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>与第二监护人关系 ：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="与第二监护人关系"  v-model="olderform.secondguardian_relationship"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>第二监护人电话：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="第二监护人电话" v-model="olderform.secondguardian_phone"
+                             autosize ></el-input>
+                </div>
+              </div>
+              <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
+                <div style="margin-left: 1rem;width: 30%;text-align: right"><p>第二监护人微信：</p></div>
+                <div class="titleinput row-right">
+                  <el-input  placeholder="第二监护人微信" v-model="olderform.secondguardian_wechat"
+                             autosize ></el-input>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
+                <el-button v-if="isShowEdit" type="primary" @click="saveEdit()">确 定</el-button>
+                <el-button v-if="isShowAdd" type="primary" @click="saveAdd()">确 定</el-button>//设置成了条件显示的按钮
             </span>
         </el-dialog>
     </div>
@@ -85,34 +241,59 @@
 
 <script>
 import axios from 'axios'
-import Cookies from 'js-cookie'
+
 import addPeople from "@/components/common/addPeople";
 export default {
     name: 'OldPersonInfo',
     components:{addPeople},
     data() {
         return {
-            query: {
-                address: '',
-                name: '',
-                pageIndex: 1,
-                pageSize: 10
-            },
-            tableData: [],
-            multipleSelection: [],
-            delList: [],
-            editVisible: false,
-            pageTotal: 0,
-            form: {},
-            idx: -1,
-            id: -1
+          query: {
+            address: '',
+            name: '',
+            pageIndex: 1,
+            pageSize: 10
+          },
+          tableData: [],
+          multipleSelection: [],
+          delList: [],
+          isShowEdit:false,
+          isShowAdd:false,
+          editVisible: false,
+          addVisible: false,
+          pageTotal: 0,
+          form: {},
+          olderform: {
+            id: '',
+            username: '',
+            gender: '',
+            phone: '',
+            id_card: '',
+            birthday: '',
+            checkin_date: '',
+            checkout_date: '',
+            imgset_dir: '',
+            profile_photo: '',
+            room_number: '',
+            firstguardian_name: '',
+            firstguardian_relationship: '',
+            firstguardian_phone: '',
+            firstguardian_wechat: '',
+            secondguardian_name: '',
+            secondguardian_relationship: '',
+            secondguardian_phone: '',
+            secondguardian_wechat: '',
+            health_state: '',
+        }
         };
     },
-    created() {
+  //从created改为了mounted函数
+    mounted() {
         // this.getData();
         this.init()
     },
     methods: {
+      //读取老人信息
       init(){
         axios({
           methods: 'get',
@@ -127,19 +308,10 @@ export default {
         })
       },
 
-        // 获取 easy-mock 的模拟数据
-        // getData() {
-        //     fetchData(this.query).then(res => {
-        //         console.log(res);
-        //         this.tableData = res.list;
-        //         this.pageTotal = res.pageTotal || 50;
-        //     });
-        // },
         // 触发搜索按钮
         handleSearch() {
             this.$set(this.query, 'pageIndex', 1);
             this.getData();
-
         },
         // 删除操作
         handleDelete(index) {
@@ -169,6 +341,7 @@ export default {
             this.multipleSelection = val;
 
         },
+      //批量删除
         delAllSelection() {
             const length = this.multipleSelection.length;
 
@@ -188,28 +361,88 @@ export default {
             this.multipleSelection = [];
         },
         // 编辑操作
-        handleEdit(index, row) {
-          /*  this.idx = index;
-            this.form = row;
-            this.editVisible = true;*/
+        handleEdit(info) {
           this.editVisible=true
+          this.isShowAdd=false
+          this.isShowEdit=true
+          axios({
+            methods: 'get',
+            url: axios.defaults.baseURL + 'update_Information',
+            params: {"id":info.id}
+          }).then((res) => {
+            if (res.data.error === '0') {
+              this.$message.success("获取信息成功信息")
+              this.olderform=res.data.data
+            }else{
+              this.$message.error(res.data.messages)
+            }
+          })
+
         },
         // 保存编辑
         saveEdit() {
             this.editVisible = false;
-            this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-            this.$set(this.tableData, this.idx, this.form);
+           /* var infomation={};
+            infomation.prototype.id=this.olderform.id
+            infomation.prototype.update=this.olderform*/
+            let id =this.olderform.id
+            let update=this.olderform
+          axios({
+            methods: 'get',
+            url: axios.defaults.baseURL + 'update_OldPerson',
+            params: {id,update}
+          }).then((res) => {
+            if (res.data.error === '0') {
+              this.$message.success("修改信息成功")
+              this.olderform={}//将olderform的值清空
+            } else {
+              this.$message.error(res.data.messages)
+            }
+          })
+          this.init()
         },
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
             this.getData();
-        }
+        },
+      //添加老人
+      addOld(){
+        this.editVisible = true
+        this.isShowAdd = true
+        this.isShowEdit = false
+
+        this.olderform={}
+      },
+      //保存添加老人结果
+      saveAdd() {
+        this.editVisible =false
+        axios({
+          methods: 'get',
+          url: axios.defaults.baseURL + '',
+          params: this.olderform
+        }).then((res) => {
+          if (res.data.error === '0') {
+            this.$message.success("修改信息成功")
+
+          } else {
+            this.$message.error(res.data.messages)
+          }
+        })
+        this.init()
+      }
     }
 };
 </script>
 
 <style scoped>
+.display-row {
+  display: -webkit-flex; /* Safari */
+  -webkit-justify-content: flex-start; /* Safari 6.1+ */
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
 .handle-box {
     margin-bottom: 20px;
 }
