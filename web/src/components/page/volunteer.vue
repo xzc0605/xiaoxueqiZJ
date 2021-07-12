@@ -6,6 +6,22 @@
             </el-breadcrumb>
         </div>
         <div class="container">
+            <div style="margin-bottom: 10px">
+                <el-button
+                        type="primary"
+                        icon="el-icon-delete"
+                        class="handle-del mr10"
+                        style="margin-right: 10px"
+                        @click="delAllSelection"
+                >批量删除</el-button>
+            <el-autocomplete
+                    class="inline-input"
+                    v-model="keyWord"
+                    :fetch-suggestions="querySearch"
+                    placeholder="请输入内容"
+            ></el-autocomplete>
+                <el-button slot="append" icon="el-icon-search"></el-button>
+            </div>
             <el-table
                     :data="tableData"
                     border
@@ -88,7 +104,7 @@
 <script>
     import addPeople from "../common/addPeople";
     import axios from 'axios';
-    import API from "../../api";
+    import Cookies from 'js-cookie'
     export default {
         name: 'tabs',
         components:{addPeople},
@@ -103,6 +119,10 @@
                 tableIndex:'',
                 tableData: [
                 ],
+                // id:Cookies.get('userid'),
+                keyWord:'',
+                idSet:[],
+                id:'',
             }
         },
         mounted() {
@@ -120,13 +140,22 @@
                     this.tableData=res.data.data
                 })
             },
+            // querySearch(queryString, cb) {
+            //     axios.get(axios.defaults.baseURL+'select_Volunteer')
+            // },
             updateNewVolunteer(){
-                let data=this.$refs.addPeople.VolunteerForm
                 // insert_Employee
                 // update_Employee
-                let url='update_Volunteer'
-                if(!this.isEdit)
-                    url='insert_Volunteer'
+                let url='insert_Volunteer'
+                let data=this.$refs.addPeople.VolunteerForm
+                if(this.isEdit){
+                    url='update_Volunteer'
+                    data={
+                        'id':parseInt(data.id),
+                        update:data,
+                    }
+                }
+
                 axios.get(axios.defaults.baseURL+url,{params:
                     data
                 }).then(res=>{
@@ -144,8 +173,10 @@
                 this.id=this.tableData[index].id
                 this.deleteVisible=true
             },
-            deleteNewWorker(){
+            deleteNewWorker(idSet){
                 let data={id:this.id}
+                if(idSet)
+                    data.id=idSet
                 axios.get(axios.defaults.baseURL+'delete_Volunteer',{params:
                     data
                 }).then(res=>{
@@ -182,12 +213,18 @@
                 }
                 this.$refs.addPeople.VolunteerForm=this.tableData[this.tableIndex]
             },
-        },
-        computed: {
-            unreadNum(){
-                return this.unread.length;
+            handleSelectionChange(val){
+                this.idSet=[]
+                val.forEach(item=>{
+                    this.idSet.push(item.id)
+                })
+            },
+            delAllSelection(){
+                this.idSet.forEach(item=>{
+                    this.deleteNewWorker(item)
+                })
             }
-        }
+        },
     }
 
 </script>

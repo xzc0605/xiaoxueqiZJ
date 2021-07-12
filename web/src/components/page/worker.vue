@@ -6,6 +6,22 @@
             </el-breadcrumb>
         </div>
         <div class="container">
+            <div style="margin-bottom: 10px">
+                <el-button
+                        type="primary"
+                        icon="el-icon-delete"
+                        class="handle-del mr10"
+                        style="margin-right: 10px"
+                        @click="delAllSelection"
+                >批量删除</el-button>
+                <el-autocomplete
+                        class="inline-input"
+                        v-model="keyWord"
+                        :fetch-suggestions="querySearch"
+                        placeholder="请输入内容"
+                ></el-autocomplete>
+                <el-button slot="append" icon="el-icon-search"></el-button>
+            </div>
             <el-table
                     :data="tableData"
                     border
@@ -120,6 +136,8 @@
                 tableIndex:'',
                 tableRow:'',
                 isEdit:false,
+                keyWord:'',
+                idSet:[],
             }
         },
         mounted() {
@@ -139,9 +157,15 @@
             },
             updateNewWorker(){
                 let data=this.$refs.addPeople.workform
-                let url='update_Employee'
-                if(!this.isEdit)
-                    url='insert_Employee'
+                let url='insert_Employee'
+                if(this.isEdit){
+                    url='update_Employee'
+                    data={
+                        'id':parseInt(data.id),
+                        update:data,
+                    }
+                }
+
                 // insert_Employee
                 // update_Employee
                 axios.get(axios.defaults.baseURL+url,{params:
@@ -199,6 +223,19 @@
                     this.deleteVisible=false
                     this.$message.success('操作成功')
                     this.getTableData()
+                })
+            },
+
+            delAllSelection(){
+                this.idSet.forEach(item=>{
+                    this.deleteNewWorker(item)
+                })
+            },
+
+            handleSelectionChange(val){
+                this.idSet=[]
+                val.forEach(item=>{
+                    this.idSet.push(item.id)
                 })
             },
         },
