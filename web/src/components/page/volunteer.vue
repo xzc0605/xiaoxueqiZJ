@@ -173,8 +173,8 @@
                         phone:'',
                         id_card:'',
                         birthday:'',
-                        hire_date:'',
-                        resign_date:'',
+                        checkin_date:'',
+                        checkout_date:'',
                         imgset_dir:'',
                         profile_photo:'',
                     }
