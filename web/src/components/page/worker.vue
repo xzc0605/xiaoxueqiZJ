@@ -50,7 +50,9 @@
                         layout="total, sizes, prev, pager, next, jumper"
                         style="float: left;padding: 0px"
                 ></el-pagination>
-                <div style="float: right"><el-button type="primary" size="mini" @click="addVisible=true">添加人员</el-button></div>
+                <div style="float: right"><el-button type="primary" size="mini" @click="()=>{this.addVisible=true;
+                                                                                    this.isEdit=false;
+                                                                                    }">添加人员</el-button></div>
             </div>
         </div>
         <el-dialog
@@ -117,6 +119,7 @@
                 id:'',
                 tableIndex:'',
                 tableRow:'',
+                isEdit:false,
             }
         },
         mounted() {
@@ -124,7 +127,7 @@
         },
         methods: {
             getTableData(){
-                axios.get('http://172.30.83.51:8080/select_Employee',{params:{
+                axios.get(axios.defaults.baseURL+'select_Employee',{params:{
 
                     }}).then(res=>{
                     // if(res.data.error=='1'){
@@ -136,9 +139,12 @@
             },
             updateNewWorker(){
                 let data=this.$refs.addPeople.workform
+                let url='update_Employee'
+                if(!this.isEdit)
+                    url='insert_Employee'
                 // insert_Employee
                 // update_Employee
-                axios.get(axios.defaults.baseURL+'insert_Employee',{params:
+                axios.get(axios.defaults.baseURL+url,{params:
                         data
                     }).then(res=>{
                     if(res.data.error!=0){
@@ -152,14 +158,26 @@
                 })
             },
             handleEdit(index, row) {
+                this.isEdit=true
+                this.tableIndex=index;
                 this.addVisible=true;
-                this.handleEditDialog()
-
             },
             handleEditDialog(){
-                if(!this.tableIndex||!this.tableRow)
+                if(!this.isEdit){
+                    this.$refs.addPeople.workform={
+                        id:'',
+                            username:'',
+                            gender:'',
+                            phone:'',
+                            id_card:'',
+                            birthday:'',
+                            hire_date:'',
+                            resign_date:'',
+                            imgset_dir:'',
+                            profile_photo:'',
+                    }
                     return
-                console.log(this.$refs.addPeople.workform)
+                }
                 this.$refs.addPeople.workform=this.tableData[this.tableIndex]
             },
 
@@ -183,16 +201,7 @@
                     this.getTableData()
                 })
             },
-            handleRestore(index) {
-                const item = this.recycle.splice(index, 1);
-                this.read = item.concat(this.read);
-            }
         },
-        computed: {
-            unreadNum(){
-                return this.unread.length;
-            }
-        }
     }
 </script>
 

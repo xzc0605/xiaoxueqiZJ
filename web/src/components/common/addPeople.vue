@@ -14,8 +14,10 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>性别 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="性别" v-model="workform.gender"
-                               autosize ></el-input>
+                    <el-select placeholder="性别" v-model="workform.gender" style="width: 100%">
+                        <el-option name="男" value="男"></el-option>
+                        <el-option name="女" value="女"></el-option>
+                    </el-select>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
@@ -35,22 +37,31 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>出生日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="出生日期" v-model="workform.birthday"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="出生日期"
+                            v-model="workform.birthday"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>	入职日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="入职日期" v-model="workform.hire_date"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="入职日期"
+                            v-model="workform.hire_date"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>离职日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="离职日期"  v-model="workform.resign_date"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="离职日期"
+                            v-model="workform.resign_date"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
@@ -79,8 +90,10 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>性别 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="性别" v-model="VolunteerForm.gender"
-                               autosize ></el-input>
+                    <el-select placeholder="性别" v-model="VolunteerForm.gender" style="width: 100%">
+                        <el-option name="男" value="男"></el-option>
+                        <el-option name="女" value="女"></el-option>
+                    </el-select>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
@@ -100,22 +113,31 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>出生日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="出生日期" v-model="VolunteerForm.birthday"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="出生日期"
+                            v-model="VolunteerForm.birthday"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>	访问日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="入职日期" v-model="VolunteerForm.checkin_date"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="入职日期"
+                            v-model="VolunteerForm.checkin_date"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>离开日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="离职日期"  v-model="VolunteerForm.checkout_date"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="离职日期"
+                            v-model="VolunteerForm.checkout_date"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
@@ -145,8 +167,10 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>性别 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="性别" v-model="olderform.gender"
-                               autosize ></el-input>
+                    <el-select placeholder="性别" v-model="olderform.gender" style="width: 100%">
+                        <el-option name="男" value="男"></el-option>
+                        <el-option name="女" value="女"></el-option>
+                    </el-select>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
@@ -166,22 +190,31 @@
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>出生日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="出生日期" v-model="olderform.birthday"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="出生日期"
+                            v-model="olderform.birthday"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>	入养老院日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="入养老院日期" v-model="olderform.checkin_date"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="出生入养老院日期"
+                            v-model="olderform.checkin_date"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>离开养老院日期 ：</p></div>
                 <div class="titleinput row-right">
-                    <el-input  placeholder="离开养老院日期"  v-model="olderform.checkout_date"
-                               autosize ></el-input>
+                    <el-date-picker
+                            style="width: 100%"
+                            value-format="yyyy-MM-dd"
+                            placeholder="离开养老院日期"
+                            v-model="olderform.checkout_date"></el-date-picker>
                 </div>
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
