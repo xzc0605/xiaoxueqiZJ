@@ -80,7 +80,7 @@ class MysqlManager(object):
         self._close_db()
 
     #  插入老人信息,number:1
-    def insert_OldPerson(self, username, gender, phone, id_card):
+    def insert_OldPerson(self, username, gender, phone, birthday, checkin_date, checkout_date, id_card):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
@@ -97,8 +97,9 @@ class MysqlManager(object):
                 self._close_db()
                 return "1"
         # 构建sql语句
-        sql = "INSERT INTO oldperson_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-            username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        sql = "INSERT INTO oldperson_info (username,gender,phone, birthday, checkin_date, checkout_date,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            username, gender, phone, birthday, checkin_date, checkout_date, id_card,
+            datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
@@ -107,7 +108,7 @@ class MysqlManager(object):
         return "0"
 
     #  插入义工信息,number:2
-    def insert_Volunteer(self, username, gender, phone, id_card):
+    def insert_Volunteer(self, username, gender, phone, birthday, checkin_date, checkout_date, id_card):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
@@ -124,8 +125,9 @@ class MysqlManager(object):
                 self._close_db()
                 return "1"
         # 构建sql语句
-        sql = "INSERT INTO volunteer_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-            username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        sql = "INSERT INTO volunteer_info (username,gender,phone, birthday, checkin_date, checkout_date,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            username, gender, phone, birthday, checkin_date, checkout_date, id_card,
+            datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
@@ -135,7 +137,7 @@ class MysqlManager(object):
         return "0"
 
     #  插入工作人员信息,number:3
-    def insert_Employee(self, username, gender, phone, id_card):
+    def insert_Employee(self, username, gender, phone, birthday, hire_date, resign_date, id_card):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
         self._connect_db()
@@ -152,8 +154,9 @@ class MysqlManager(object):
                 self._close_db()
                 return "1"
         # 构建sql语句
-        sql = "INSERT INTO employee_info (username,gender,phone,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')""" % (
-            username, gender, phone, id_card, datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        sql = "INSERT INTO employee_info (username,gender,phone, birthday, hire_date, resign_date,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
+            username, gender, phone, birthday, hire_date, resign_date, id_card,
+            datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
@@ -194,8 +197,19 @@ class MysqlManager(object):
         return "0"
 
     #  修改老人信息,number:5
-    def update_OldPerson(self, id, data):
+    def update_OldPerson(self, id, update):
         self._connect_db()
+        data = {
+            'birthday': update['birthday'],
+            'gender': update['gender'],
+            'checkin_date': update['checkin_date'],
+            'id_card': update['id_card'],
+            'imgset_dir': update['imgset_dir'],
+            'phone': update['phone'],
+            'profile_photo': update['profile_photo'],
+            'checkout_date': update['checkout_date'],
+            'username': update['username']
+        }
         # 构建sql语句
         for i in data:
             sql = "UPDATE oldperson_info SET %s = ('%s') WHERE id = ('%s') """ % (i, data[i], id)
@@ -206,10 +220,22 @@ class MysqlManager(object):
         self._close_db()
         #  自动存储时间
         self.save_time("1", "oldperson_info", id)
+        return "0"
 
     #  修改义工信息,number:6
-    def update_Volunteer(self, id, data):
+    def update_Volunteer(self, id, update):
         self._connect_db()
+        data = {
+            'birthday': update['birthday'],
+            'gender': update['gender'],
+            'checkin_date': update['checkin_date'],
+            'id_card': update['id_card'],
+            'imgset_dir': update['imgset_dir'],
+            'phone': update['phone'],
+            'profile_photo': update['profile_photo'],
+            'checkout_date': update['checkout_date'],
+            'username': update['username']
+        }
         # 构建sql语句
         for i in data:
             sql = "UPDATE volunteer_info SET %s = ('%s') WHERE id = ('%s') """ % (i, data[i], id)
@@ -220,12 +246,24 @@ class MysqlManager(object):
         self._close_db()
         #  自动存储时间
         self.save_time("1", "volunteer_info", id)
+        return "0"
 
     #  修改工作人员信息,number:7
-    def update_Employee(self, id, data):
+    def update_Employee(self, id, update):
         self._connect_db()
-        # 构建sql语句
+        data = {
+            'birthday': update['birthday'],
+            'gender': update['gender'],
+            'hire_date': update['hire_date'],
+            'id_card': update['id_card'],
+            'imgset_dir': update['imgset_dir'],
+            'phone': update['phone'],
+            'profile_photo': update['profile_photo'],
+            'resign_date': update['resign_date'],
+            'username': update['username']
+        }
         for i in data:
+            # print(data[i])
             sql = "UPDATE employee_info SET %s = ('%s') WHERE id = ('%s') """ % (i, data[i], id)
             print("正在执行语句：" + sql)
             self.__cursor.execute(sql)
@@ -291,7 +329,8 @@ class MysqlManager(object):
         if result:
             for row in result:
                 data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                        'birthday': row[7], 'checkin_date': row[8], 'checkout_date': row[9], 'imgset_dir': row[10],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
                         'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13],
                         'firstguardian_relationship': row[14],
                         'firstguardian_phone': row[15], 'firstguardian_wechat': row[16],
@@ -317,7 +356,8 @@ class MysqlManager(object):
         if result:
             for row in result:
                 data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                        'birthday': row[7], 'checkin_date': row[8], 'checkout_date': row[9], 'imgset_dir': row[10],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
                         'profile_photo': row[11]}
                 jsonData.append(data)
             print("义工信息查询成功\n")
@@ -339,11 +379,12 @@ class MysqlManager(object):
         if result:
             for row in result:
                 data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                        'birthday': row[7], 'hire_date': row[8], 'resign_date': row[9], 'imgset_dir': row[10],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'hire_date': row[8].strftime('%Y-%m-%d'),
+                        'resign_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
                         'profile_photo': row[11]}
                 jsonData.append(data)
             print("工作人员信息查询成功\n")
-            print(jsonData)
+            # print(jsonData)
             return jsonData
         else:
             print("工作人员信息查询失败\n")
@@ -364,34 +405,6 @@ class MysqlManager(object):
         self.save_time("1", "sys_user", id)
         print("修改管理员信息成功\n")
         return "0"
-
-    # ------------------------------------------------------------------------------------------------------
-    # 管理员登录注册
-    # ------------------------------------------------------------------------------------------------------
-    # def insert_resigter(self, UserName, Password, EMAIL, PHONE):
-    #     # 管理员的注册
-    #     '''
-    #         dbManager.insert(UserName,Password,EMAIL,PHONE)
-    #     添加数据到数据库
-    #
-    #     '''
-    #     # 用户传入数据字典列表数据，根据key, value添加进数据库
-    #     # 连接数据库
-    #     self._connect_db()
-    #
-    #     try:
-    #         # 构建sql语句
-    #         sql = "insert into sys_user (ORG_ID,CLIENT_ID,UserName,Password,EMAIL,PHONE) values ('1', '1','%s','%s','%s','%s')""" % (
-    #             UserName, Password, EMAIL, PHONE)
-    #
-    #         self.__cursor.execute(sql)
-    #         self.__connect.commit()
-    #     except Exception as error:
-    #         print('error')
-    #         return 0
-    #     finally:
-    #         self._close_db()
-    #         return 1
 
     def get_resigter_sys_userID(self):
         # 注册时获取管理员的ID
@@ -452,3 +465,52 @@ class MysqlManager(object):
         else:
             print("管理员信息查询失败\n")
             return "1"
+
+    #  模糊查询通用接口,number:17
+    def select_Information(self, form, field, key):
+        self._connect_db()
+        # sql = "SELECT * FROM %s WHERE username LIKE '%s'  """ % (form, "%"+key+"%")
+        sql = "SELECT * FROM %s WHERE %s LIKE '%s'  """ % (form, field, "%"+key+"%")
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        # print(result)
+        self._close_db()
+
+        jsonData = []
+        if form == "oldperson_info":
+            for row in result:
+                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                        'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13],
+                        'firstguardian_relationship': row[14],
+                        'firstguardian_phone': row[15], 'firstguardian_wechat': row[16],
+                        'secondguardian_name': row[17], 'secondguardian_relationship': row[18],
+                        'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
+                jsonData.append(data)
+            print("老人信息查询成功\n")
+            return jsonData
+        elif form == "volunteer_info":
+            for row in result:
+                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                        'profile_photo': row[11]}
+                jsonData.append(data)
+            print("义工信息查询成功\n")
+            return jsonData
+        elif form == "employee_info":
+            for row in result:
+                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'hire_date': row[8].strftime('%Y-%m-%d'),
+                        'resign_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                        'profile_photo': row[11]}
+                jsonData.append(data)
+            print("工作人员信息查询成功\n")
+            return jsonData
+        else:
+            print("无查询结果\n")
+            return "1"
+
