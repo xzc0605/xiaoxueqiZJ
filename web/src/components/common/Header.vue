@@ -34,12 +34,10 @@
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        <!--{{username}}-->
-                        {{tableData.nickname}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="modify">修改信息</el-dropdown-item>
+                        <el-dropdown-item command="infomation">我的信息</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -113,7 +111,7 @@ export default {
  // },
 
   methods: {
-    init(){
+ /*   init(){
       axios({
         methods: 'get',
         url: axios.defaults.baseURL + 'select_SysUser',
@@ -128,15 +126,16 @@ export default {
           this.$message.error("error")
         }
       })
-    },
+    },*/
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
                 localStorage.removeItem('ms_username');
                 this.$router.push('/login');
             }
-            if(command == 'modify'){
-                this.dialogFormVisible=true;
+            if(command == 'infomation'){
+                /*this.dialogFormVisible=true;*/
+               this.$router.push('/icon');
            /*   axios({
                 methods: 'get',
                 url: axios.defaults.baseURL + 'select_SysUser',

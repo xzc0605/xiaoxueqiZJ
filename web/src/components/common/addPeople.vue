@@ -148,6 +148,7 @@
                     <el-input  placeholder="性别" v-model="olderform.gender"
                                autosize ></el-input>
                 </div>
+
             </div>
             <div style="margin-top:20px;align-items: center;justify-content: center;width: 100%" class="display-row">
                 <div style="margin-left: 1rem;width: 20%;text-align: right"><p>电话 ：</p></div>
