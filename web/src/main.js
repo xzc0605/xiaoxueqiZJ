@@ -13,6 +13,11 @@ import axios from 'axios'
 
 axios.defaults.baseURL="http://172.30.88.40:8080/"
 
+
+
+
+
+
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
