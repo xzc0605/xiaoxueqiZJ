@@ -33,8 +33,8 @@
                 <el-button  icon="el-icon-male"></el-button>
                 <el-select style="width:84.6%" v-model="form.sex" placeholder="性别">
 
-                  <el-option label="男" value="m"></el-option>
-                  <el-option label="女" value="f"></el-option>
+                  <el-option label="男" value="男"></el-option>
+                  <el-option label="女" value="女"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item prop="username" v-show="showR">
@@ -140,7 +140,7 @@ export default {
                    if (res.data.error === '0') {
                       this.$message.success('登录成功');
                        Cookies.set('userid',res.data.id)
-                       this.$router.push('/dashboard');
+                       this.$router.push('/icon');
 
                    }else{
                      this.$message.error(res.data.messages)
@@ -186,12 +186,11 @@ export default {
           url:axios.defaults.baseURL+'insert_SysUser',
           params:this.form
         }).then((res) => {
-
           if (res.data.error === '0') {
               this.$message.success("注册成功")
               this.toLogin();
           } else {
-            this.$message.error("未接收到信息")
+            this.$message.error(res.data.messages)
           }
         })
       },
