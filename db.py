@@ -524,42 +524,44 @@ class MysqlManager(object):
         self._close_db()
 
         jsonData = []
-        if form == "oldperson_info":
-            for row in result:
-                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
-                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
-                        'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13],
-                        'firstguardian_relationship': row[14],
-                        'firstguardian_phone': row[15], 'firstguardian_wechat': row[16],
-                        'secondguardian_name': row[17], 'secondguardian_relationship': row[18],
-                        'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
-                jsonData.append(data)
-            print("老人信息查询成功\n")
-            return jsonData
-        elif form == "volunteer_info":
-            for row in result:
-                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
-                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
-                        'profile_photo': row[11]}
-                jsonData.append(data)
-            print("义工信息查询成功\n")
-            return jsonData
-        elif form == "employee_info":
-            for row in result:
-                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
-                        'birthday': row[7].strftime('%Y-%m-%d'), 'hire_date': row[8].strftime('%Y-%m-%d'),
-                        'resign_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
-                        'profile_photo': row[11]}
-                jsonData.append(data)
-            print("工作人员信息查询成功\n")
-            return jsonData
+
+        if result:
+            if form == "oldperson_info":
+                for row in result:
+                    data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                            'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                            'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                            'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13],
+                            'firstguardian_relationship': row[14],
+                            'firstguardian_phone': row[15], 'firstguardian_wechat': row[16],
+                            'secondguardian_name': row[17], 'secondguardian_relationship': row[18],
+                            'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
+                    jsonData.append(data)
+                print("老人信息查询成功\n")
+                return jsonData
+            elif form == "volunteer_info":
+                for row in result:
+                    data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                            'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                            'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                            'profile_photo': row[11]}
+                    jsonData.append(data)
+                print("义工信息查询成功\n")
+                return jsonData
+            elif form == "employee_info":
+                for row in result:
+                    data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                            'birthday': row[7].strftime('%Y-%m-%d'), 'hire_date': row[8].strftime('%Y-%m-%d'),
+                            'resign_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                            'profile_photo': row[11]}
+                    jsonData.append(data)
+                print("工作人员信息查询成功\n")
+                return jsonData
         else:
             print("无查询结果\n")
             return "1"
 
-    #  修改老人信息接口,number:18
+    #  修改老人时查询信息接口,number:18
     def update_Information(self, id):
         self._connect_db()
         # sql = "SELECT * FROM %s WHERE username LIKE '%s'  """ % (form, "%"+key+"%")
@@ -587,3 +589,52 @@ class MysqlManager(object):
         else:
             print("无查询结果\n")
             return "1"
+
+    #  查询事件信息,number:19
+    def delivery_Event(self):
+        self._connect_db()
+        sql = "SELECT * FROM event_info"
+        #  仅清空数据库信息
+        # sql = "TRUNCATE TABLE event_info"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        # print(result)
+        self._close_db()
+        information = []
+        if result:
+            for row in result:
+                data = {'id': row[0], 'event_type': row[1], 'event_date': row[2],
+                        'event_location': row[3], 'event_desc': row[4], 'oldperson_id': row[5]}
+                information.append(data)
+            print("事件信息查询成功\n")
+            return information
+        else:
+            print("当前无事件\n")
+            return "1"
+
+    #  插入事件信息（测试用）,number:20
+    def insert_Event(self, event_type, event_date, event_location, event_desc, oldperson_id):
+        self._connect_db()
+        sql = "INSERT INTO event_info (event_type, event_date, event_location, event_desc, oldperson_id) VALUES" \
+              "('%s', '%s', '%s', '%s', '%s')" "" % (event_type, event_date, event_location, event_desc, oldperson_id)
+        #  仅清空数据库信息
+        # sql = "TRUNCATE TABLE event_info"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        self.__connect.commit()
+        print("语句执行完毕")
+        self._close_db()
+        return "插入成功"
+
+    #  删除事件信息（测试用）,number:21
+    def delete_Event(self):
+        self._connect_db()
+        sql = "TRUNCATE TABLE event_info"
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        print("语句执行完毕")
+        self._close_db()
+        return "删除成功"
+

@@ -120,7 +120,7 @@ def insert_Employee():
     print("正在插入工作人员信息")
     Employee = dbManager.insert_Employee(request.args.get('username'), request.args.get('gender'),
                                          request.args.get('phone'), request.args.get('birthday'),
-                                         request.args.get('hire_data'), request.args.get('resign_date'),
+                                         request.args.get('hire_date'), request.args.get('resign_date'),
                                          request.args.get('id_card'))
     if Employee == "0":
         data = {
@@ -478,8 +478,8 @@ def select_Information():
     #     'field': "id",
     #     'key': "60"
     # }
-    information = dbManager.select_Information("oldperson_info", "id", "39")
-    # information = dbManager.select_Information(request.args.get('form'), request.args.get('field'), request.args.get('key'))
+    # information = dbManager.select_Information("oldperson_info", "id", "39")
+    information = dbManager.select_Information(request.args.get('form'), request.args.get('field'), request.args.get('key'))
     if information == "1":
         data = {
             'error': "1",  # 0请求成功 1请求失败
@@ -508,12 +508,14 @@ def update_Information():
         data = {
             'error': "1",  # 0请求成功 1请求失败
             'messages': "无查询结果",
+            'state': "1"   # 0有data, 1无data
         }
     else:
         data = {
             'error': "0",  # 0请求成功 1请求失败
             'data': information,
             'messages': "信息获取成功",
+            'state': "0"   # 0有data, 1无data
         }
     res = make_response(jsonify(data))  # 设置响应体
     res.status = '200'  # 设置状态码
@@ -522,7 +524,33 @@ def update_Information():
     return res
 
 
-#  快速插入测试用老人信息,number:19
+#  查询事件信息,number:19
+@app.route('/delivery_Event', methods=['GET'])
+def delivery_Event():
+    Event = dbManager.delivery_Event()
+    if Event == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "当前无事件",
+            'state': "1"   # 0有data 1无data
+        }
+    else:
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'data': Event,
+            'event_num': len(Event),
+            'messages': "事件信息获取成功",
+            'state': "0"   # 0有data 1无data
+        }
+    res = make_response(jsonify(data))  # 设置响应体
+    res.status = '200'  # 设置状态码
+    res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
+    res.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+    # print(len(Event))
+    return res
+
+
+#  快速插入测试用老人信息,number:999
 @app.route('/fast_OldPerson', methods=['GET', 'POST'])
 def fast_OldPerson():
     dbManager.insert_OldPerson("yyn", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301113", "", "", "",
@@ -533,6 +561,23 @@ def fast_OldPerson():
                                "", "", "", "", "", "", "", "", "")
     dbManager.insert_OldPerson("hh", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301001", "", "", "", "",
                                "", "", "", "", "", "", "", "")
+
+
+#  快速插入测试用事件信息,number:20
+@app.route('/insert_Event', methods=['GET'])
+def insert_Event():
+    dbManager.insert_Event("5", "2021-07-10 10:02:10", "走廊", "陌生人出现", "2")
+    dbManager.insert_Event("2", "2021-07-10 10:02:10", "房间", "老人正在笑", "2")
+    dbManager.insert_Event("4", "2021-07-10 10:02:10", "走廊", "陌生人出现", "2")
+    dbManager.insert_Event("3", "2021-07-10 10:02:10", "走廊", "有人摔倒!!!", "2")
+    return "插入成功"
+
+
+#  快速删除测试用事件信息,number:21
+@app.route('/delete_Event', methods=['GET'])
+def delete_Event():
+    dbManager.delete_Event()
+    return "删除成功"
 
 
 if __name__ == '__main__':
