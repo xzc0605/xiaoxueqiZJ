@@ -49,11 +49,17 @@ def insert_OldPerson():
                                            request.args.get('phone'),
                                            request.args.get('birthday'), request.args.get('checkin_date'),
                                            request.args.get('checkout_date'),
-                                           request.args.get('id_card'))
-    OldPerson = dbManager.insert_OldPerson("yyn", "男", "18562052031", "18301113")
-    OldPerson = dbManager.insert_OldPerson("xzc", "男", "18562052031", "18301054")
-    OldPerson = dbManager.insert_OldPerson("wyj", "男", "18562052031", "18301009")
-    OldPerson = dbManager.insert_OldPerson("hh", "男", "18562052031", "18301001")
+                                           request.args.get('id_card'), request.args.get('imgset_dir'),
+                                           request.args.get('profile_photo'), request.args.get('health_state'),
+                                           request.args.get('room_number'), request.args.get('firstguardian_name'),
+                                           request.args.get('firstguardian_relationship'), request.args.get('firstguardian_phone'),
+                                           request.args.get('firstguardian_wechat'), request.args.get('secondguardian_name'),
+                                           request.args.get('secondguardian_relationship'), request.args.get('secondguardian_phone'),
+                                           request.args.get('secondguardian_wechat'))
+    # OldPerson = dbManager.insert_OldPerson("yyn", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301113", "", "", "", "", "", "", "", "", "", "", "", "")
+    # OldPerson = dbManager.insert_OldPerson("xzc", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301054", "", "", "", "", "", "", "", "", "", "", "", "")
+    # OldPerson = dbManager.insert_OldPerson("wyj", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301009", "", "", "", "", "", "", "", "", "", "", "", "")
+    # OldPerson = dbManager.insert_OldPerson("hh", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301001", "", "", "", "", "", "", "", "", "", "", "", "")
     if OldPerson == "0":
         data = {
             'error': "0",  # 0请求成功 1请求失败
@@ -174,6 +180,9 @@ def insert_SysUser():
 def update_OldPerson():
     print("正在修改老人信息")
     a = request.args.get('update')
+    # a = {"birthday":"1940-03-21","checkin_date":"1940-03-21","checkout_date":"1940-03-21","firstguardian_name":'null',"firstguardian_phone":'null',"firstguardian_relationship":'null',"firstguardian_wechat":'null',"gender":"男","health_state":'null',"id":40,"id_card":"18301054","imgset_dir":'null',"phone":"18562052031","profile_photo":'null',"room_number":"1111111","secondguardian_name":'null',"secondguardian_phone":'null',"secondguardian_relationship":'null',"secondguardian_wechat":'null',"username":"xzc"}
+    # print(a)
+    # print(request.args.get('id'))
     b = json.loads(a)
     OldPerson = dbManager.update_OldPerson(request.args.get('id'), b)
     if OldPerson == "0":
@@ -464,15 +473,13 @@ def select_SysUser():
 @app.route('/select_Information', methods=['GET'])
 def select_Information():
     print("正在查询相关信息")
-
     # data = {
     #     'form': "oldperson_info",  # 0请求成功 1请求失败
     #     'field': "id",
     #     'key': "60"
     # }
-
-    # information = dbManager.select_Information("oldperson_info", "username", "x")
-    information = dbManager.select_Information(request.args.get('form'), request.args.get('field'), request.args.get('key'))
+    information = dbManager.select_Information("oldperson_info", "id", "39")
+    # information = dbManager.select_Information(request.args.get('form'), request.args.get('field'), request.args.get('key'))
     if information == "1":
         data = {
             'error': "1",  # 0请求成功 1请求失败
@@ -489,6 +496,43 @@ def select_Information():
     res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
     res.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
     return res
+
+
+#  修改老人时查询接口,number:18
+@app.route('/update_Information', methods=['GET'])
+def update_Information():
+    print("正在查询相关信息")
+    # information = dbManager.update_Information("oldperson_info", "id", "39")
+    information = dbManager.update_Information(request.args.get('id'))
+    if information == "1":
+        data = {
+            'error': "1",  # 0请求成功 1请求失败
+            'messages': "无查询结果",
+        }
+    else:
+        data = {
+            'error': "0",  # 0请求成功 1请求失败
+            'data': information,
+            'messages': "信息获取成功",
+        }
+    res = make_response(jsonify(data))  # 设置响应体
+    res.status = '200'  # 设置状态码
+    res.headers['Access-Control-Allow-Origin'] = "*"  # 设置允许跨域
+    res.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+    return res
+
+
+#  快速插入测试用老人信息,number:19
+@app.route('/fast_OldPerson', methods=['GET', 'POST'])
+def fast_OldPerson():
+    dbManager.insert_OldPerson("yyn", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301113", "", "", "",
+                               "", "", "", "", "", "", "", "", "")
+    dbManager.insert_OldPerson("xzc", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301054", "", "", "",
+                               "", "", "", "", "", "", "", "", "")
+    dbManager.insert_OldPerson("wyj", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301009", "", "", "",
+                               "", "", "", "", "", "", "", "", "")
+    dbManager.insert_OldPerson("hh", "男", "18562052031", "2020-1-1", "2022-1-1", "2024-2-2", "18301001", "", "", "", "",
+                               "", "", "", "", "", "", "", "")
 
 
 if __name__ == '__main__':

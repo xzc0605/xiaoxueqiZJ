@@ -4,12 +4,15 @@
 # @Author  : yyn
 # @FileName: db.py
 # @Software: PyCharm
+from asyncio import wait
+from time import sleep
 
 import MySQLdb
 import datetime
 import os
 
 rewrite_print = print
+connection = "0"  # 1代表已连接，0代表未连接
 
 
 #  重写print，使其输出后存入文档
@@ -43,6 +46,7 @@ class MysqlManager(object):
         self.__connect = None
         self.__cursor = None
 
+    #  连接数据库
     def _connect_db(self):
         """连接数据库"""
         params = {
@@ -56,12 +60,15 @@ class MysqlManager(object):
         self.__connect = MySQLdb.connect(**params)
         self.__cursor = self.__connect.cursor()
         print("数据库连接已建立")
+        connection = "1"
 
+    #  关闭数据库
     def _close_db(self):
         """关闭数据库连接"""
         self.__cursor.close()
         self.__connect.close()
         print("数据库连接已断开\n")
+        connection = "0"
 
     #  自动存储信息更新时间update
     def save_time(self, style, cell, id):
@@ -80,9 +87,20 @@ class MysqlManager(object):
         self._close_db()
 
     #  插入老人信息,number:1
-    def insert_OldPerson(self, username, gender, phone, birthday, checkin_date, checkout_date, id_card):
+    def insert_OldPerson(self, username, gender, phone, birthday, checkin_date, checkout_date, id_card, imgset_dir,
+                         profile_photo, health_state, room_number, firstguardian_name, firstguardian_relationship,
+                         firstguardian_phone, firstguardian_wechat, secondguardian_name, secondguardian_relationship,
+                         secondguardian_phone, secondguardian_wechat):
         # 用户传入数据字典列表数据，根据key, value添加进数据库
         # 连接数据库
+        # request.args.get('imgset_dir'),
+        # request.args.get('profile_photo'), request.args.get('health_state'),
+        # request.args.get('room_number'), request.args.get('firstguardian_name'),
+        # request.args.get('firstguardian_relationship'), request.args.get('firstguardian_phone'),
+        # request.args.get('firstguardian_wechat'), request.args.get('secondguardian_name'),
+        # request.args.get('secondguardian_relationship'), request.args.get('secondguardian_phone'),
+        # request.args.get('secondguardian_wechat')
+
         self._connect_db()
 
         # 验证身份信息是否存在
@@ -97,9 +115,16 @@ class MysqlManager(object):
                 self._close_db()
                 return "1"
         # 构建sql语句
-        sql = "INSERT INTO oldperson_info (username,gender,phone, birthday, checkin_date, checkout_date,id_card,created,createby) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
-            username, gender, phone, birthday, checkin_date, checkout_date, id_card,
-            datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
+        sql = "INSERT INTO oldperson_info (username,gender,phone, birthday, checkin_date, checkout_date,id_card," \
+              " imgset_dir, profile_photo, health_state, room_number, firstguardian_name, firstguardian_relationship," \
+              " firstguardian_phone, firstguardian_wechat, secondguardian_name, secondguardian_relationship," \
+              " secondguardian_phone, secondguardian_wechat, created,createby)" \
+              " VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""" % (
+                  username, gender, phone, birthday, checkin_date, checkout_date, id_card, imgset_dir,
+                  profile_photo, health_state, room_number, firstguardian_name, firstguardian_relationship,
+                  firstguardian_phone, firstguardian_wechat, secondguardian_name, secondguardian_relationship,
+                  secondguardian_phone, secondguardian_wechat,
+                  datetime.datetime.now().strftime('%Y-%m-%d'), "18301113")
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         self.__connect.commit()
@@ -198,6 +223,13 @@ class MysqlManager(object):
 
     #  修改老人信息,number:5
     def update_OldPerson(self, id, update):
+        # if connection == "1":
+        #
+        # elif connection == "0":
+        #     self._connect_db()
+        # else:
+        #     print("数据库连接出错")
+        # sleep(2)
         self._connect_db()
         data = {
             'birthday': update['birthday'],
@@ -208,7 +240,17 @@ class MysqlManager(object):
             'phone': update['phone'],
             'profile_photo': update['profile_photo'],
             'checkout_date': update['checkout_date'],
-            'username': update['username']
+            'username': update['username'],
+            'health_state': update['health_state'],
+            'room_number': update['room_number'],
+            'firstguardian_name': update['firstguardian_name'],
+            'firstguardian_relationship': update['firstguardian_relationship'],
+            'firstguardian_phone': update['firstguardian_phone'],
+            'firstguardian_wechat': update['firstguardian_wechat'],
+            'secondguardian_name': update['secondguardian_name'],
+            'secondguardian_relationship': update['secondguardian_relationship'],
+            'secondguardian_phone': update['secondguardian_phone'],
+            'secondguardian_wechat': update['secondguardian_wechat'],
         }
         # 构建sql语句
         for i in data:
@@ -217,6 +259,7 @@ class MysqlManager(object):
             self.__cursor.execute(sql)
             self.__connect.commit()
             print("语句执行完毕")
+
         self._close_db()
         #  自动存储时间
         self.save_time("1", "oldperson_info", id)
@@ -243,6 +286,7 @@ class MysqlManager(object):
             self.__cursor.execute(sql)
             self.__connect.commit()
             print("语句执行完毕")
+
         self._close_db()
         #  自动存储时间
         self.save_time("1", "volunteer_info", id)
@@ -324,7 +368,6 @@ class MysqlManager(object):
         self.__cursor.execute(sql)
         result = self.__cursor.fetchall()
         print("语句执行完毕")
-        self._close_db()
         jsonData = []
         if result:
             for row in result:
@@ -338,9 +381,11 @@ class MysqlManager(object):
                         'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
                 jsonData.append(data)
             print("老人信息查询成功\n")
+            self._close_db()
             return jsonData
         else:
             print("老人信息查询失败\n")
+            self._close_db()
             return "1"
 
     #  查询义工信息,number:12
@@ -470,7 +515,7 @@ class MysqlManager(object):
     def select_Information(self, form, field, key):
         self._connect_db()
         # sql = "SELECT * FROM %s WHERE username LIKE '%s'  """ % (form, "%"+key+"%")
-        sql = "SELECT * FROM %s WHERE %s LIKE '%s'  """ % (form, field, "%"+key+"%")
+        sql = "SELECT * FROM %s WHERE %s LIKE '%s'  """ % (form, field, "%" + key + "%")
         print("正在执行语句：" + sql)
         self.__cursor.execute(sql)
         result = self.__cursor.fetchall()
@@ -514,3 +559,31 @@ class MysqlManager(object):
             print("无查询结果\n")
             return "1"
 
+    #  修改老人信息接口,number:18
+    def update_Information(self, id):
+        self._connect_db()
+        # sql = "SELECT * FROM %s WHERE username LIKE '%s'  """ % (form, "%"+key+"%")
+        sql = "SELECT * FROM oldperson_info WHERE id = '%s'  """ % id
+        print("正在执行语句：" + sql)
+        self.__cursor.execute(sql)
+        result = self.__cursor.fetchall()
+        print("语句执行完毕")
+        # print(result)
+        self._close_db()
+        information = {}
+        if result:
+            for row in result:
+                data = {'id': row[0], 'username': row[3], 'gender': row[4], 'phone': row[5], 'id_card': row[6],
+                        'birthday': row[7].strftime('%Y-%m-%d'), 'checkin_date': row[8].strftime('%Y-%m-%d'),
+                        'checkout_date': row[9].strftime('%Y-%m-%d'), 'imgset_dir': row[10],
+                        'profile_photo': row[11], 'room_number': row[12], 'firstguardian_name': row[13],
+                        'firstguardian_relationship': row[14],
+                        'firstguardian_phone': row[15], 'firstguardian_wechat': row[16],
+                        'secondguardian_name': row[17], 'secondguardian_relationship': row[18],
+                        'secondguardian_phone': row[19], 'secondguardian_wechat': row[20], 'health_state': row[21]}
+                information = data
+            print("老人信息查询成功\n")
+            return information
+        else:
+            print("无查询结果\n")
+            return "1"
