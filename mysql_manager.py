@@ -112,9 +112,7 @@ class MysqlManager(object):
                 jsonData.append(data)
             print(jsonData)
             return jsonData
-
         else:
-            print("用户名不存在")
             return 0
 # ---------------------------------------------------------------------------------------------------------------
 # 老人信息处理
@@ -156,4 +154,142 @@ class MysqlManager(object):
             print(jsonData)
             return jsonData
             self._close_db()
+            return 1
+
+        # ---------------------------------------------------------------------------------------------------------------
+        # 工作人员信息处理
+        # ---------------------------------------------------------------------------------------------------------------
+    def analysis_employee(self):
+        # 统计分析工作人员的年龄结构
+        '''
+                    dbManager.analysis_employee()
+
+        '''
+        # 连接数据库
+        self._connect_db()
+
+        try:
+            # 构建sql语句
+            sql = "Select " \
+                  "Sum(1), " \
+                  "Sum(Case When age <=20 Then 1 Else 0 End) As '[0-20]'," \
+                  "Sum(Case When age Between 21 And 30 Then 1 Else 0 End) As '[21-30]'," \
+                  "Sum(Case When age Between 31 And 40 Then 1 Else 0 End) As '[31-40]'," \
+                  "Sum(Case When age Between 41 And 50 Then 1 Else 0 End) As '[41-50]'" \
+                  "From" \
+                  "(SELECT *, ROUND(DATEDIFF(CURDATE(), birthday)/365.2422)  AS 'age' FROM employee_info) s "
+
+            self.__cursor.execute(sql)
+            self.__connect.commit()
+        except Exception as error:
+            print('error')
+            return 0
+        finally:
+            result = self.__cursor.fetchall()
+            print(result)
+            jsonData = []
+            for row in result:
+                data = {'[总人数(人)]': int(row[0]), '[0-20岁(人)]': int(row[1]), '[20-30岁(人)]': int(row[2]),
+                        '[30-40岁(人)]': int(row[3]), '[40-50岁(人)]': int(row[4])}
+                jsonData.append(data)
+            print(jsonData)
+            return jsonData
+            self._close_db()
+            return 1
+
+        # ---------------------------------------------------------------------------------------------------------------
+        # 义工信息处理
+        # ---------------------------------------------------------------------------------------------------------------
+
+    def analysis_volunteer(self):
+        # 统计分析工作人员的年龄结构
+        '''
+                    dbManager.analysis_volunteer()
+
+        '''
+        # 连接数据库
+        self._connect_db()
+
+        try:
+            # 构建sql语句
+            sql = "Select " \
+                  "Sum(1), " \
+                  "Sum(Case When age <=20 Then 1 Else 0 End) As '[0-20]'," \
+                  "Sum(Case When age Between 21 And 30 Then 1 Else 0 End) As '[21-30]'," \
+                  "Sum(Case When age Between 31 And 40 Then 1 Else 0 End) As '[31-40]'," \
+                  "Sum(Case When age Between 41 And 50 Then 1 Else 0 End) As '[41-50]'" \
+                  "From" \
+                  "(SELECT *, ROUND(DATEDIFF(CURDATE(), birthday)/365.2422)  AS 'age' FROM volunteer_info) s "
+
+            self.__cursor.execute(sql)
+            self.__connect.commit()
+        except Exception as error:
+            print('error')
+            return 0
+        finally:
+            result = self.__cursor.fetchall()
+            print(result)
+            jsonData = []
+            for row in result:
+                data = {'[总人数(人)]': int(row[0]), '[0-20岁(人)]': int(row[1]), '[20-30岁(人)]': int(row[2]),
+                        '[30-40岁(人)]': int(row[3]), '[40-50岁(人)]': int(row[4])}
+                jsonData.append(data)
+            print(jsonData)
+            return jsonData
+            self._close_db()
+            return 1
+
+    # ----------------------------------------------------------------------------------------------------------------------
+# 与计算机视觉的对接
+# ----------------------------------------------------------------------------------------------------------------------
+#     分析老人的情感
+    def insert_event1(self,event_type,event_date,event_location,event_desc,oldperson_id):
+        # 管理员的注册
+        '''
+            dbManager.insert(UserName,Password,EMAIL,PHONE)
+        添加数据到数据库
+
+        '''
+        # 用户传入数据字典列表数据，根据key, value添加进数据库
+        # 连接数据库
+        self._connect_db()
+
+        try:
+            # 构建sql语句
+            sql = "insert into event_info (event_type,event_date,event_location,event_desc,oldperson_id) values ('%s','%s','%s','%s','%s')""" % (event_type,event_date,event_location,event_desc,oldperson_id)
+            print(sql)
+            self.__cursor.execute(sql)
+            self.__connect.commit()
+        except Exception as error:
+            print('error')
+            return 0
+        finally:
+            self._close_db()
+            print('插入成功')
+            return 1
+
+    #分析是否有人摔倒、分析是否有人闯入禁止区域、分析老人是否与义工互动、分析是否有陌生人出现
+    def insert_event2(self,event_type,event_date,event_location,event_desc):
+        # 管理员的注册
+        '''
+            dbManager.insert(UserName,Password,EMAIL,PHONE)
+        添加数据到数据库
+
+        '''
+        # 用户传入数据字典列表数据，根据key, value添加进数据库
+        # 连接数据库
+        self._connect_db()
+
+        try:
+            # 构建sql语句
+            sql = "insert into event_info (event_type,event_date,event_location,event_desc) values ('%s','%s','%s','%s')""" % (event_type,event_date,event_location,event_desc)
+            print(sql)
+            self.__cursor.execute(sql)
+            self.__connect.commit()
+        except Exception as error:
+            print('error')
+            return 0
+        finally:
+            self._close_db()
+            print('插入成功')
             return 1
