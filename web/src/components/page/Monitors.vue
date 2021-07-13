@@ -8,7 +8,7 @@
       </el-breadcrumb>
     </div>
         <el-card>
-            <el-button @click="callCamera" >1111</el-button>
+            <el-button @click="callCamera()" >1111</el-button>
             <!--canvas截取流-->
             <canvas ref="canvas" width="640" height="480"></canvas>
             <!--图片展示-->
@@ -53,20 +53,28 @@
 import Schart from 'vue-schart';
 import axios from "axios";
 export default {
+    inject:['reload'],
     name: 'Monitors',
     components: {
 
     },
     data() {
         return {
+          timer:null,
           eventData:[],
           totalnums:0,
           pagesize: 10,
           currentPage: 1,
         };
     },
-  created() {
-   this.getEvent()
+   mounted() {
+      this.getEvent()                                                                                        /* 记得注释掉*/
+ /*    this.timer = setInterval(() => {
+       setTimeout(this.getEvent, 0)
+     }, 2000*6)*/
+  },
+  destroyed () {
+    clearInterval(this.timer)
   },
   methods: {
       getEvent(){
@@ -81,7 +89,9 @@ export default {
             this.$message.error(res.data.messages)
           }
         })
+
       },
+
         // 调用摄像头
         callCamera () {
             // H5调用电脑摄像头API
