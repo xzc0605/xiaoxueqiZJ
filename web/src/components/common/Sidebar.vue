@@ -76,7 +76,7 @@ export default {
                             title: '老年人信息'
                         },
                         {
-                            index: 'dashboard',
+                            index: 'health',
                             title: '年龄及健康状态统计',
                         },
                     ]

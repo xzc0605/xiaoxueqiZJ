@@ -20,6 +20,11 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
+                    path: '/health',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/healthStatitics'),
+                    meta: { title: '健康统计' }
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
                     meta: { title: '自定义图标' }
@@ -86,12 +91,12 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "i18n" */ '../components/page/I18n.vue'),
                     meta: { title: '国际化' }
                 },
-                {
-                    // 权限页面
-                    path: '/permission',
-                    component: () => import(/* webpackChunkName: "permission" */ '../components/page/Permission.vue'),
-                    meta: { title: '权限测试', permission: true }
-                },
+                // {
+                //     // 权限页面
+                //     path: '/permission',
+                //     component: () => import(/* webpackChunkName: "permission" */ '../components/page/Permission.vue'),
+                //     meta: { title: '权限测试', permission: true }
+                // },
                 {
                     path: '/404',
                     component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),
@@ -105,7 +110,7 @@ export default new Router({
                 {
                     path: '/addpeople',
                     component: () => import('../components/common/addPeople'),
-                    meta: { title: '支持作者' }
+                    meta: { title: '添加人员' }
                 }
             ]
         },
