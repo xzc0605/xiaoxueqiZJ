@@ -1,5 +1,12 @@
 <template>
-    <div>
+  <div>
+    <div class="crumbs">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>
+          <i class="el-icon-pie-chart"></i> 监控信息
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
         <el-card>
             <el-button @click="callCamera" >1111</el-button>
             <!--canvas截取流-->
@@ -9,22 +16,42 @@
             <!--确认-->
             <el-button size="mini" type="primary" @click="photograph">222222</el-button>
         </el-card>
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item>
-                    <i class="el-icon-pie-chart"></i> 监控信息
-                </el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
-        <div class="container">
-            <p style="text-align: center">本页面拟存放摄像头监控画面</p>
-            </div>
 
+        <div class="container">
+           <!-- <p style="text-align: center">本页面拟存放摄像头监控画面</p>-->
+          <el-table
+              :data="eventData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+              border
+              class="table"
+              ref="multipleTable"
+              header-cell-class-name="table-header"
+          >
+            <el-table-column type="selection" width="55" align="center"></el-table-column>
+            <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+            <el-table-column prop="event_type" label="事件类型" align="center"></el-table-column>
+            <el-table-column prop="event_location" label="地点" align="center"></el-table-column>
+            <el-table-column prop="event_desc" label="描述" align="center"></el-table-column>
+            <el-table-column prop="oldperson_id" label="老人id" align="center"></el-table-column>
+          </el-table>
+
+          <div style="text-align: center;margin-top: 30px;">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
+                :page-size="pagesize"
+                :total="totalnums"
+                layout="total, prev, pager, next">
+            </el-pagination>
+          </div>
         </div>
+  </div>
 </template>
 
 <script>
 import Schart from 'vue-schart';
+import axios from "axios";
 export default {
     name: 'Monitors',
     components: {
@@ -32,10 +59,29 @@ export default {
     },
     data() {
         return {
-
+          eventData:[],
+          totalnums:0,
+          pagesize: 10,
+          currentPage: 1,
         };
     },
-    methods: {
+  created() {
+   this.getEvent()
+  },
+  methods: {
+      getEvent(){
+        axios({
+          methods: 'get',
+          url: axios.defaults.baseURL + 'delivery_Event',
+        }).then((res) => {
+          if (res.data.error === '0') {
+            this.eventData=res.data.data
+            this.totalnums=res.data.event_num
+          }else{
+            this.$message.error(res.data.messages)
+          }
+        })
+      },
         // 调用摄像头
         callCamera () {
             // H5调用电脑摄像头API
@@ -100,11 +146,21 @@ export default {
             })
             this.$refs['video'].srcObject = null
         },
+    handleSizeChange: function (val) {
+      this.pagesize = val;
+    },
+    handleCurrentChange: function (currentPage) {
+      this.currentPage = currentPage;
+    },
     }
 };
 </script>
 
 <style scoped>
+.table {
+  width: 100%;
+  font-size: 14px;
+}
 .schart-box {
     display: inline-block;
     margin: 20px;
