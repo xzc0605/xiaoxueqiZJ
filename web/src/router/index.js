@@ -32,12 +32,12 @@ export default new Router({
                 {
                     path: '/volunteer',
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/volunteer.vue'),
-                    meta: { title: 'tab选项卡' }
+                    meta: { title: '义工信息' }
                 },
                 {
                     path: '/worker',
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/worker.vue'),
-                    meta: { title: 'tab选项卡' }
+                    meta: { title: '工作人员信息' }
                 },
                 {
                     path: '/old',

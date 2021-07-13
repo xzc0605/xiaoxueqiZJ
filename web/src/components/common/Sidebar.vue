@@ -79,10 +79,6 @@ export default {
                             index: 'dashboard',
                             title: '年龄及健康状态统计',
                         },
-                        {
-                            index: ' add',
-                            title: '添加老人'
-                        }
                     ]
                 },
                {

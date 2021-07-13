@@ -111,22 +111,7 @@ export default {
  // },
 
   methods: {
- /*   init(){
-      axios({
-        methods: 'get',
-        url: axios.defaults.baseURL + 'select_SysUser',
-        params: this.form
-      }).then((res) => {
-        if (res.data.error === '0') {
-              this.tableData.nickname=res.data.data.username,
-              this.tableData.email=res.data.data.email,
-              this.tableData.phone=res.data.data.phone,
-              this.tableData.password=res.data.data.password
-        }else{
-          this.$message.error("error")
-        }
-      })
-    },*/
+
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
@@ -136,20 +121,6 @@ export default {
             if(command == 'infomation'){
                 /*this.dialogFormVisible=true;*/
                this.$router.push('/icon');
-           /*   axios({
-                methods: 'get',
-                url: axios.defaults.baseURL + 'select_SysUser',
-                params: this.form
-              }).then((res) => {
-                if (res.data.error === '0') {
-                      this.tableData.nickname=res.data.data.username,
-                      this.tableData.email=res.data.data.email,
-                      this.tableData.phone=res.data.data.phone,
-                      this.tableData.password=res.data.data.password
-                }else{
-                  this.$message.error("error")
-                }
-              })*/
             }
         },
         // 侧边栏折叠

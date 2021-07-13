@@ -18,10 +18,11 @@
                 <el-select v-model="query.field" placeholder="属性" class="handle-select mr10">
                     <el-option key="1" label="ID" value="id"></el-option>
                     <el-option key="2" label="姓名" value="username"></el-option>
-                    <el-option key="3" label="出生日期" value="birthday"></el-option>
-                    <el-option key="4" label="身份证号" value="id_card"></el-option>
-                    <el-option key="5" label="电话号" value="phone"></el-option>
-                    <el-option key="6" label="健康状态" value="health_state"></el-option>
+                   <el-option key="3" label="性别" value="gender"></el-option>
+                    <el-option key="4" label="出生日期" value="birthday"></el-option>
+                    <el-option key="5" label="身份证号" value="id_card"></el-option>
+                    <el-option key="6" label="电话号" value="phone"></el-option>
+                    <el-option key="7" label="健康状态" value="health_state"></el-option>
                 </el-select>
 
                 <el-input v-model="query.key" placeholder="搜索内容" class="handle-input mr10"></el-input>
@@ -264,7 +265,6 @@ export default {
           },
           tableData: [],
           multipleSelection: [],
-          delList: [],
           isShowEdit:false,
           isShowAdd:false,
           editVisible: false,
@@ -375,11 +375,13 @@ export default {
                 .catch(() => {});
 
         },
+
         // 多选操作
         handleSelectionChange(val) {
             this.multipleSelection = val;
 
         },
+
       //批量删除
         delAllSelection()   {
             const length = this.multipleSelection.length;
@@ -392,7 +394,7 @@ export default {
               }).then((res) => {
 
                 if (res.data.error === '0') {
-                  alert("删除成功，刷新查看结果")
+                  this.$message.success(res.data.messages)
                   this.multipleSelection = [];
                   this.init()
                 }else{
@@ -402,6 +404,7 @@ export default {
             }
 
         },
+
         // 编辑操作
         handleEdit(info) {
           this.editVisible=true
@@ -421,6 +424,7 @@ export default {
           })
 
         },
+
         // 保存编辑
         saveEdit() {
             this.editVisible = false;
@@ -442,6 +446,7 @@ export default {
           })
 
         },
+
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageIndex', val);
@@ -455,6 +460,7 @@ export default {
 
         this.olderform={}
       },
+
       //保存添加老人结果
       saveAdd() {
         this.editVisible =false
