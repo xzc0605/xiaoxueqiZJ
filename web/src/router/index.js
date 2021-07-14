@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 Vue.use(Router);
+Vue.use(VueVideoPlayer)
 
 export default new Router({
     routes: [
@@ -108,9 +110,9 @@ export default new Router({
                     meta: { title: '403' }
                 },
                 {
-                    path: '/addpeople',
-                    component: () => import('../components/common/addPeople'),
-                    meta: { title: '添加人员' }
+                    path: '/Donate',
+                    component: () => import('../components/page/Donate.vue'),
+                    meta: { title: '测试' }
                 }
             ]
         },

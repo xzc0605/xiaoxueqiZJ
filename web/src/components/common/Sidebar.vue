@@ -139,8 +139,8 @@ export default {
                             title: '权限测试'
                         },
                         {
-                            index: 'addpeople',
-                            title: '添加人员'
+                            index: 'Donate',
+                            title: '测试'
                         }
                     ]
                 },

@@ -7,15 +7,30 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-        <el-card>
+
+    <div class="camera_outer">
+      <video id="videoCamera" :width="videoWidth" :height="videoHeight" autoplay></video>
+      <canvas style="display:none;" id="canvasCamera" :width="videoWidth" :height="videoHeight"></canvas>
+      <div v-if="imgSrc" class="img_bg_camera">
+        <p>效果预览</p>
+        <img :src="imgSrc" alt class="tx_img" />
+      </div>
+      <div class="button">
+        <el-button @click="getCompetence()">打开摄像头</el-button>
+        <el-button @click="stopNavigator()">关闭摄像头</el-button>
+      </div>
+    </div>
+
+
+<!--        <el-card>
             <el-button @click="callCamera()" >1111</el-button>
-            <!--canvas截取流-->
+            &lt;!&ndash;canvas截取流&ndash;&gt;
             <canvas ref="canvas" width="640" height="480"></canvas>
-            <!--图片展示-->
+            &lt;!&ndash;图片展示&ndash;&gt;
             <video ref="video" width="640" height="480" autoplay></video>
-            <!--确认-->
+            &lt;!&ndash;确认&ndash;&gt;
             <el-button size="mini" type="primary" @click="photograph">222222</el-button>
-        </el-card>
+        </el-card>-->
 
         <div class="container">
            <!-- <p style="text-align: center">本页面拟存放摄像头监控画面</p>-->
@@ -60,6 +75,19 @@ export default {
     },
     data() {
         return {
+          videoWidth: 350,
+          videoHeight: 350,
+          imgSrc: "",
+          thisCancas: null,
+          thisContext: null,
+          thisVideo: null,
+          openVideo:false,
+
+
+
+
+
+
           timer:null,
           eventData:[],
           totalnums:0,
@@ -92,7 +120,7 @@ export default {
 
       },
 
-        // 调用摄像头
+/*        // 调用摄像头
         callCamera () {
             // H5调用电脑摄像头API
             navigator.mediaDevices.getUserMedia({
@@ -105,9 +133,78 @@ export default {
             }).catch(error => {
                 console.error('摄像头开启失败，请检查摄像头是否可用！')
             })
-        },
+        },*/
+
+
+    // 调用权限（打开摄像头功能）
+    getCompetence() {
+      var _this = this;
+      _this.thisCancas = document.getElementById("canvasCamera");
+      _this.thisContext = this.thisCancas.getContext("2d");
+      _this.thisVideo = document.getElementById("videoCamera");
+      _this.thisVideo.style.display = 'block';
+      // 获取媒体属性，旧版本浏览器可能不支持mediaDevices，我们首先设置一个空对象
+      if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+      }
+      // 一些浏览器实现了部分mediaDevices，我们不能只分配一个对象
+      // 使用getUserMedia，因为它会覆盖现有的属性。
+      // 这里，如果缺少getUserMedia属性，就添加它。
+      if (navigator.mediaDevices.getUserMedia === undefined) {
+        navigator.mediaDevices.getUserMedia = function(constraints) {
+          // 首先获取现存的getUserMedia(如果存在)
+          var getUserMedia =
+              navigator.webkitGetUserMedia ||
+              navigator.mozGetUserMedia ||
+              navigator.getUserMedia;
+          // 有些浏览器不支持，会返回错误信息
+          // 保持接口一致
+          if (!getUserMedia) {//不存在则报错
+            return Promise.reject(
+                new Error("getUserMedia is not implemented in this browser")
+            );
+          }
+          // 否则，使用Promise将调用包装到旧的navigator.getUserMedia
+          return new Promise(function(resolve, reject) {
+            getUserMedia.call(navigator, constraints, resolve, reject);
+          });
+        };
+      }
+      var constraints = {
+        audio: false,
+        video: {
+          width: this.videoWidth,
+          height: this.videoHeight,
+          transform: "scaleX(-1)"
+        }
+      };
+      navigator.mediaDevices
+          .getUserMedia(constraints)
+          .then(function(stream) {
+            // 旧的浏览器可能没有srcObject
+            if ("srcObject" in _this.thisVideo) {
+              _this.thisVideo.srcObject = stream;
+            } else {
+              // 避免在新的浏览器中使用它，因为它正在被弃用。
+              _this.thisVideo.src = window.URL.createObjectURL(stream);
+            }
+            _this.thisVideo.onloadedmetadata = function(e) {
+              _this.thisVideo.play();
+            };
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    },
+    //关闭摄像头
+    stopNavigator() {
+      this.thisVideo.srcObject.getTracks()[0].stop();
+    },
+
+
+
         // 拍照
-        photograph () {
+/*        photograph () {
             navigator.mediaDevices.getUserMedia({
                 video: false
             }).then(success => {
@@ -142,7 +239,7 @@ export default {
             ADOM.href = this.headImgSrc
             ADOM.download = new Date().getTime() + '.jpeg'
             ADOM.click()
-        },
+        },*/
         // 关闭摄像头
         closeCamera () {
             if (!this.$refs['video'].srcObject) {
@@ -156,6 +253,7 @@ export default {
             })
             this.$refs['video'].srcObject = null
         },
+
     handleSizeChange: function (val) {
       this.pagesize = val;
     },

@@ -59,7 +59,7 @@
           <div class="grid-content grid-con-1">
             <i class="el-icon-lx-people grid-con-icon"></i>
             <div class="grid-cont-right">
-              <div class="grid-num">{{ comment_num }}</div>
+              <div class="grid-num">{{ oldperson_num }}</div>
               <div>老人数量</div>
             </div>
           </div>
@@ -69,7 +69,7 @@
           <div  class="grid-content grid-con-2">
             <i class="el-icon-coordinate grid-con-icon"></i>
             <div class="grid-cont-right">
-              <div class="grid-num">{{ comment_num }}</div>
+              <div class="grid-num">{{ employee_num }}</div>
               <div>工作人员数量</div>
             </div>
           </div>
@@ -79,7 +79,7 @@
           <div  class="grid-content grid-con-3">
             <i class="el-icon-mouse grid-con-icon"></i>
             <div class="grid-cont-right">
-              <div class="grid-num">{{ comment_num }}</div>
+              <div class="grid-num">{{ volunteer_num }}</div>
               <div>义工数量</div>
             </div>
           </div>
@@ -163,7 +163,9 @@
                 password:'',
               },
 
-              comment_num:2,
+              oldperson_num:0,
+              employee_num:0,
+              volunteer_num:0,
 
 
             }
@@ -183,7 +185,10 @@
                   this.tableData.sex=res.data.data.gender,
                   this.tableData.email=res.data.data.email,
                   this.tableData.phone=res.data.data.phone,
-                  this.tableData.password=res.data.data.password
+                  this.tableData.password=res.data.data.password,
+                  this.oldperson_num=res.data.oldperson_num,
+                  this.employee_num=res.data.employee_num,
+                  this.volunteer_num=res.data.volunteer_num
             }else{
               this.$message.error("error")
             }
