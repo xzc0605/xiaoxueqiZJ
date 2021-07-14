@@ -117,6 +117,36 @@ class MysqlManager(object):
 # ---------------------------------------------------------------------------------------------------------------
 # 老人信息处理
 # ---------------------------------------------------------------------------------------------------------------
+    def analysis_oldpeolpe_checking(self):
+        # 统计分析老人的入院年份结构
+        '''
+                    dbManager.analysis_oldpeolpe()
+
+        '''
+        # 连接数据库
+        self._connect_db()
+
+        try:
+            # 构建sql语句
+            sql ="select  DATE_FORMAT(checkin_date,'%Y'), COUNT(checkin_date) FROM oldperson_info GROUP BY DATE_FORMAT(checkin_date,'%Y')"
+
+            self.__cursor.execute(sql)
+            self.__connect.commit()
+        except Exception as error:
+            print('error')
+            return 0
+        finally:
+            result = self.__cursor.fetchall()
+            print(result)
+            jsonData = []
+            for row in result:
+                data = {row[0],row[1]}
+                jsonData.append(data)
+            print(jsonData)
+            return jsonData
+            self._close_db()
+            return 1
+
     def analysis_oldpeolpe(self):
         # 统计分析老人的年龄结构
         '''
