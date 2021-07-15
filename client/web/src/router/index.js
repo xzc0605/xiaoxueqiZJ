@@ -29,7 +29,7 @@ export default new Router({
                 {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
-                    meta: { title: '自定义图标' }
+                    meta: { title: '系统首页' }
                 },
                 {
                     path: '/ add',
@@ -111,7 +111,7 @@ export default new Router({
                 },
                 {
                     path: '/Donate',
-                    component: () => import('../components/page/Donate.vue'),
+                    component: () => import('../components/page/RTSP.vue'),
                     meta: { title: '测试' }
                 }
             ]

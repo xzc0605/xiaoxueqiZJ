@@ -19,16 +19,79 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b155f97d-4d21-4254-a7bd-e68ee89fcae4" name="Default Changelist" comment="徐紫程提交x">
+    <list default="true" id="b155f97d-4d21-4254-a7bd-e68ee89fcae4" name="Default Changelist" comment="徐紫程完成老人事件刷新以及rtmp推流（待调整）">
+      <change afterPath="$PROJECT_DIR$/server/.babelrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/components/page/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/components/page/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/components/page/OldPersonInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/components/page/OldPersonInfo.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/.browserslistrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/.github/FUNDING.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/public/table.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/screenshots/wms1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/screenshots/wms2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/screenshots/wms3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/api/API_DEV.js.sample" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/api/API_PRO.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/api/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/color-dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/icon.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/theme-green/color-green.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/theme-green/fonts/element-icons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/theme-green/fonts/element-icons.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/css/theme-green/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/img/img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/img/login-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/img/yanglao.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/Header.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/Home.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/Sidebar.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/Tags.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/addPeople.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/bus.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/directives.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/common/i18n.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/403.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/404.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/BaseForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Donate.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/DragDialog.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/DragList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/I18n.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Icon.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Login.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Markdown.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Monitors.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/OldPersonInfo.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Permission.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/Upload.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/VueEditor.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/healthStatitics.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/volunteer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/components/page/worker.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/router/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/utils/request.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/vue.config.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,14 +103,25 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="E:/WebStorm/workplace/new-front" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettier.import.notification.dismissed" value="true" />
     <property name="ts.external.directory.path" value="E:\WebStorm\WebStorm 2020.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.dev (1)">
+    <configuration name="dev (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/client/web/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/web/package.json" />
       <command value="run" />
@@ -60,6 +134,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.dev (1)" />
         <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
@@ -73,7 +148,24 @@
       <option name="presentableId" value="Default" />
       <updated>1625619271558</updated>
       <workItem from="1625619275361" duration="2781000" />
-      <workItem from="1625704455094" duration="20057000" />
+      <workItem from="1625704455094" duration="27819000" />
+      <workItem from="1625747473839" duration="83000" />
+      <workItem from="1625791917852" duration="11188000" />
+      <workItem from="1625830819642" duration="7288000" />
+      <workItem from="1626051860764" duration="18344000" />
+      <workItem from="1626095273183" duration="1247000" />
+      <workItem from="1626136693491" duration="9650000" />
+      <workItem from="1626158922501" duration="19311000" />
+      <workItem from="1626223254052" duration="19292000" />
+      <workItem from="1626259762466" duration="1605000" />
+      <workItem from="1626267507179" duration="1356000" />
+      <workItem from="1626269289171" duration="141000" />
+      <workItem from="1626269446104" duration="28000" />
+      <workItem from="1626269478018" duration="68000" />
+      <workItem from="1626269549839" duration="132000" />
+      <workItem from="1626269702603" duration="4273000" />
+      <workItem from="1626310920917" duration="3722000" />
+      <workItem from="1626314818160" duration="8978000" />
     </task>
     <task id="LOCAL-00001" summary="徐紫程提交x">
       <created>1625711594086</created>
@@ -82,7 +174,91 @@
       <option name="project" value="LOCAL" />
       <updated>1625711594086</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="徐紫程解决连接">
+      <created>1625731344789</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1625731344789</updated>
+    </task>
+    <task id="LOCAL-00003" summary="徐紫程解决连接">
+      <created>1625735707794</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625735707794</updated>
+    </task>
+    <task id="LOCAL-00004" summary="徐紫程完成管理员信息">
+      <created>1625739058691</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625739058691</updated>
+    </task>
+    <task id="LOCAL-00005" summary="徐紫程完成管理员信息">
+      <created>1625793262161</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1625793262161</updated>
+    </task>
+    <task id="LOCAL-00006" summary="徐紫程完成xxx">
+      <created>1625814532302</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1625814532302</updated>
+    </task>
+    <task id="LOCAL-00007" summary="徐紫程完成老人信息">
+      <created>1626069111383</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1626069111383</updated>
+    </task>
+    <task id="LOCAL-00008" summary="徐紫程完善老人部分功能">
+      <created>1626096510437</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1626096510437</updated>
+    </task>
+    <task id="LOCAL-00009" summary="徐紫程1111">
+      <created>1626142882971</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1626142882971</updated>
+    </task>
+    <task id="LOCAL-00010" summary="徐紫程完成老人全部功能 工作人员和义工的批量删除、搜索功能">
+      <created>1626146344290</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1626146344290</updated>
+    </task>
+    <task id="LOCAL-00011" summary="徐紫程完成老人事件信息">
+      <created>1626164591762</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1626164591762</updated>
+    </task>
+    <task id="LOCAL-00012" summary="徐紫程完成111111111111111">
+      <created>1626176685811</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1626176685811</updated>
+    </task>
+    <task id="LOCAL-00013" summary="徐紫程完成老人事件刷新以及rtmp推流（待调整）">
+      <created>1626242219508</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1626242219508</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,32 +278,38 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="徐紫程提交x" />
-    <option name="LAST_COMMIT_MESSAGE" value="徐紫程提交x" />
+    <MESSAGE value="徐紫程解决连接" />
+    <MESSAGE value="徐紫程完成管理员信息" />
+    <MESSAGE value="徐紫程完成xxx" />
+    <MESSAGE value="徐紫程完成老人信息" />
+    <MESSAGE value="徐紫程完善老人部分功能" />
+    <MESSAGE value="徐紫程1111" />
+    <MESSAGE value="徐紫程完成老人全部功能 工作人员和义工的批量删除、搜索功能" />
+    <MESSAGE value="徐紫程完成老人事件信息" />
+    <MESSAGE value="徐紫程完成111111111111111" />
+    <MESSAGE value="徐紫程完成老人事件刷新以及rtmp推流（待调整）" />
+    <option name="LAST_COMMIT_MESSAGE" value="徐紫程完成老人事件刷新以及rtmp推流（待调整）" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="280" key="GridCell.Tab.0.bottom" timestamp="1625727652405">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1626316292658">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1625727652405" />
-    <state width="1899" height="280" key="GridCell.Tab.0.center" timestamp="1625727652405">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1626316292658" />
+    <state width="1899" height="294" key="GridCell.Tab.0.bottom" timestamp="1626329167811">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1625727652405" />
-    <state width="1899" height="280" key="GridCell.Tab.0.left" timestamp="1625727652405">
+    <state width="1899" height="294" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1626329167811" />
+    <state width="1899" height="294" key="GridCell.Tab.0.center" timestamp="1626329167811">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1625727652405" />
-    <state width="1899" height="280" key="GridCell.Tab.0.right" timestamp="1625727652405">
+    <state width="1899" height="294" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1626329167811" />
+    <state width="1899" height="294" key="GridCell.Tab.0.left" timestamp="1626329167811">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1625727652405" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1625711737579">
+    <state width="1899" height="294" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1626329167811" />
+    <state width="1899" height="294" key="GridCell.Tab.0.right" timestamp="1626329167811">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1625711737579" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1625729055085">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1625729055085" />
+    <state width="1899" height="294" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1626329167811" />
   </component>
 </project>

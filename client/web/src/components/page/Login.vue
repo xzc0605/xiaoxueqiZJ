@@ -149,7 +149,7 @@ export default {
                 }
             });
         },
-/*      Login(){
+     /* Login(){
         this.$router.push('/dashboard');
       },*/
       async Register(){

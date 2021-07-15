@@ -81,7 +81,7 @@ export default {
                         },
                     ]
                 },
-               {
+               /*{
                 icon: 'el-icon-rank',
                 index: '6',
                 title: '老年人事件管理',
@@ -99,7 +99,7 @@ export default {
                     title: '事件统计'
                   },
                 ]
-            },
+            },*/
                 {
                     icon: 'el-icon-lx-cascades',
                     index: '7',

@@ -358,7 +358,6 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
-                  /*console.log(1111111111111111,index)*/
                   axios({
                     methods: 'get',
                     url: axios.defaults.baseURL + 'delete_OldPerson',

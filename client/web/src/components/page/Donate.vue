@@ -26,8 +26,10 @@ export default {
         playbackRates: [0.5, 1.0, 1.5, 2.0],
         sources: [{
           type: "rtmp/mp4",
-         /* src: "rtmp://58.200.131.2:1935/livetv/hunantv"*/
-          src:"rtmp://live.hkstv.hk.lxdns.com/live/hks"
+          src: "rtmp://58.200.131.2:1935/livetv/chcatv"
+
+          // src: "rtmp://202.69.69.180:443/webcast/bshdlive-pc/"
+
         }],
         techOrder: ['flash'],
         autoplay: false,
@@ -58,7 +60,7 @@ export default {
   }
   .video-wrap {
     width: 500px;
-    height: 300px;
+    height: 400px;
   }
 
 </style>
