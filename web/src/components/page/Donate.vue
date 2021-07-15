@@ -27,7 +27,8 @@ export default {
         sources: [{
           type: "rtmp/mp4",
          /* src: "rtmp://58.200.131.2:1935/livetv/hunantv"*/
-          src:"rtmp://live.hkstv.hk.lxdns.com/live/hks"
+          // src:"rtmp://live.hkstv.hk.lxdns.com/live/hks"
+          src:'rtmp://localhost:8080/stream'
         }],
         techOrder: ['flash'],
         autoplay: false,

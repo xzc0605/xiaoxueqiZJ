@@ -96,6 +96,13 @@ export default {
         };
     },
    mounted() {
+     loadPlayer({
+       url: `ws://localhost:8081/video_viewer`,
+       canvas: document.getElementById('canvas'),
+
+       // optional
+       onDisconnect: () => console.log('Connection lost!'),
+     });
       this.getEvent()                                                                                        /* 记得注释掉*/
  /*    this.timer = setInterval(() => {
        setTimeout(this.getEvent, 0)
