@@ -157,9 +157,15 @@
             },
             updateNewWorker(){
                 let data=this.$refs.addPeople.workform
-                let url='update_Employee'
-                if(!this.isEdit)
-                    url='insert_Employee'
+                let url='insert_Employee'
+                if(this.isEdit){
+                  url='update_Employee'
+                  data={
+                    id:data.id,
+                    update:data,
+                  }
+                }
+
                 // insert_Employee
                 // update_Employee
                 axios.get(axios.defaults.baseURL+url,{params:

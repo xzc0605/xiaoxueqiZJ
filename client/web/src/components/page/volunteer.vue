@@ -141,9 +141,15 @@
                 let data=this.$refs.addPeople.VolunteerForm
                 // insert_Employee
                 // update_Employee
-                let url='update_Volunteer'
-                if(!this.isEdit)
-                    url='insert_Volunteer'
+                let url='insert_Volunteer'
+                if(this.isEdit){
+                  url='update_Volunteer'
+                  data={
+                    id:data.id,
+                    update:data
+                  }
+                }
+
                 axios.get(axios.defaults.baseURL+url,{params:
                     data
                 }).then(res=>{

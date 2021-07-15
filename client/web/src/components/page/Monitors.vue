@@ -83,7 +83,7 @@
                 </div>
               </el-col>
             </el-row>-->
-      <!--<el-table
+      <el-table
           :data="cameras"
           style="width: 100%">
         <el-table-column
@@ -105,7 +105,7 @@
             <el-button type="primary" size="small" @click="showVideo(scope.row)">查看</el-button>
           </template>
         </el-table-column>
-      </el-table>-->
+      </el-table>
     </div>
 
     <div class="crumbs" style="margin-top: 40px">
@@ -149,16 +149,29 @@
 
 
 
-    <el-dialog title="摄像头" :visible.sync="modalShow">
-      <video ref="player" width="100%" height="450"></video>
+    <el-dialog title="摄像头1" :visible.sync="fangjianShow">
+      <video ref="player1" width="100%" height="450"></video>
 
-      <div slot="footer">
-        <el-button type="primary" @click="playVideo()">开始</el-button>
-        <el-button type="primary" @click="close()">关闭</el-button>
-      </div>
+
     </el-dialog>
 
+    <el-dialog title="摄像头2" :visible.sync="zhuoziShow">
+      <video ref="player2" width="100%" height="450"></video>
 
+
+    </el-dialog>
+
+    <el-dialog title="摄像头3" :visible.sync="zoulangShow">
+      <video ref="player3" width="100%" height="450"></video>
+
+
+    </el-dialog>
+
+    <el-dialog title="摄像头4" :visible.sync="yuanziShow">
+      <video ref="player4" width="100%" height="450"></video>
+
+
+    </el-dialog>
 
   </div>
 </template>
@@ -190,7 +203,8 @@ export default {
 
       rtspUrl1: 'rtsp://admin:admin@192.168.43.41:8554/live',
       rtspUrl2: 'rtsp://admin:admin@192.168.43.1:8554/live',
-
+      rtspUrl3: 'rtsp://admin:admin@192.168.43.33:8554/live',
+      rtspUrl4: 'rtsp://admin:admin@192.168.43.159:8554/live',
       cameras: [
         {
           id: 1,
@@ -233,7 +247,7 @@ export default {
       }
     },*/
   mounted() {
-    /* this.getEvent()*/
+     /*this.getEvent()*/
     this.timer = setInterval(() => {
       setTimeout(this.getEvent, 0)
     }, 2000)
@@ -263,16 +277,30 @@ export default {
     },
 
     showVideo(row) {
-      this.modalData = {...row}
-      this.modalShow = true
 
+      if(row.id===1){
+        this.fangjianShow=true
+        this.playVideo1(1)
+
+      }else if(row.id===2){
+        this.zhuoziShow=true
+        this.playVideo2(2)
+
+      }else if(row.id===3) {
+        this.zoulangShow=true
+        this.playVideo3(3)
+
+      }else if(row.id===4){
+        this.yuanziShow=true
+        this.playVideo4(4)
+      }
     },
     close(){
       this.destroyVideo()
-      /* this.fangjianShow=false,
-       this.zhuoziShow=false,*/
-      this.zoulangShow=false,
-          this.yuanziShow=false
+       this.fangjianShow=false,
+       this.zhuoziShow=false,
+       this.zoulangShow=false,
+       this.yuanziShow=false
     },
     destroyVideo () {
       if (this.player) {
@@ -286,7 +314,7 @@ export default {
     },
 
     playVideo1 (index) {
-      this.zoulangShow=true
+
       if (flvjs.isSupported()) {
         let video = this.$refs.player1
 
@@ -319,7 +347,7 @@ export default {
       }
     },
     playVideo2 (index) {
-      this.yuanziShow=true
+
       if (flvjs.isSupported()) {
         let video = this.$refs.player2
 
@@ -333,6 +361,72 @@ export default {
             hasAudio: false,
             enableStashBuffer: false, // Enable IO stash buffer. Set to false if you need realtime (minimal latency) for live stream playback, but may stalled if there's network jittering.
             url: `ws://localhost:8888/rtsp/${index}/?url=${this.rtspUrl2}`
+          })
+          this.player.attachMediaElement(video)
+          try {
+            this.player.load()
+            this.player.play()
+
+            console.log('play')
+          } catch (error) {
+            console.log(error)
+            this.$message.error("播放错误")
+          }
+
+          if (document.hidden !== undefined) {
+            document.addEventListener('visibilitychange', this.justifyPlayTime)
+          }
+        }
+      }
+    },
+    playVideo3 (index) {
+
+      if (flvjs.isSupported()) {
+        let video = this.$refs.player3
+
+        if (video) {
+          if (this.player) {
+            this.destroyVideo()
+          }
+          this.player = flvjs.createPlayer({
+            type: 'flv',
+            isLive: true,
+            hasAudio: false,
+            enableStashBuffer: false, // Enable IO stash buffer. Set to false if you need realtime (minimal latency) for live stream playback, but may stalled if there's network jittering.
+            url: `ws://localhost:8888/rtsp/${index}/?url=${this.rtspUrl3}`
+          })
+          this.player.attachMediaElement(video)
+          try {
+            this.player.load()
+            this.player.play()
+
+            console.log('play')
+          } catch (error) {
+            console.log(error)
+            this.$message.error("播放错误")
+          }
+
+          if (document.hidden !== undefined) {
+            document.addEventListener('visibilitychange', this.justifyPlayTime)
+          }
+        }
+      }
+    },
+    playVideo4 (index) {
+
+      if (flvjs.isSupported()) {
+        let video = this.$refs.player4
+
+        if (video) {
+          if (this.player) {
+            this.destroyVideo()
+          }
+          this.player = flvjs.createPlayer({
+            type: 'flv',
+            isLive: true,
+            hasAudio: false,
+            enableStashBuffer: false, // Enable IO stash buffer. Set to false if you need realtime (minimal latency) for live stream playback, but may stalled if there's network jittering.
+            url: `ws://localhost:8888/rtsp/${index}/?url=${this.rtspUrl4}`
           })
           this.player.attachMediaElement(video)
           try {
